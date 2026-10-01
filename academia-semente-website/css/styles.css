@@ -1091,7 +1091,24 @@ h1, h2, h3, h4 {
 
 /* ========== DIFERENCIAIS ========== */
 .diferenciais {
+  position: relative;
   background: var(--gray-100);
+  overflow: hidden;
+}
+
+.diferenciais-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/diff-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.diferenciais > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .diff-grid {
@@ -1115,8 +1132,10 @@ h1, h2, h3, h4 {
   padding: 1.75rem 1.25rem;
   border: 1px solid var(--gray-200);
   border-radius: var(--radius);
-  background: var(--white);
-  transition: border-color var(--trans);
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  transition: border-color var(--trans), box-shadow var(--trans);
 }
 
 .diff-item:hover {
