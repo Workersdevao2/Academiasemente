@@ -133,3 +133,10 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `css/styles.css` — full-cover contact background + soft white/green overlay; form glass panel
 - `README.md` — changelog
 
+### 2026-10-01 — Porquê nós section background
+**Files changed:**
+- `assets/diff-bg.jpg` — soft mint leaf abstract background
+- `index.html` — diferenciais bg layer
+- `css/styles.css` — full-cover background; cards semi-transparent with blur
+- `README.md` — changelog
+
