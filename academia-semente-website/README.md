@@ -91,3 +91,14 @@ python3 -m http.server 8080
 
 The site hero keeps the original solid brand green; only the man is overlaid.
 
+### 2026-10-01 — Hero man visible on mobile
+**Files changed:**
+- `css/styles.css` — hero image now shows on mobile (below text), sized for small screens; desktop unchanged
+- `assets/hero-man.png` — confirmed cutout in use (full shoulders)
+- `README.md` — changelog
+
+### 2026-10-01 — Better hero portrait (full shoulders)
+**Files changed:**
+- `assets/hero-man.png` — replaced with new full-shoulder cutout (white bg removed via flood-fill)
+- `README.md` — changelog
+
