@@ -41,8 +41,7 @@ academia-semente-website/
 ├── css/styles.css
 ├── js/main.js
 ├── assets/
-│   ├── hero-man.png   ← cutout (used on site)
-│   └── hero.jpg       ← original full artwork
+│   └── hero.jpg       ← reception / brand hero photo
 └── README.md
 ```
 
@@ -106,4 +105,12 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 **Files changed:**
 - `css/styles.css` — on mobile, man is positioned behind the hero text (absolute, bottom-aligned); text stays in front with light gradient for readability. Desktop split layout unchanged.
 - `README.md` — changelog
+
+### 2026-10-01 — Reception desk as hero image
+**Files changed:**
+- `assets/hero.jpg` — new reception desk photo (previous hero images deleted)
+- `assets/hero-man.png` — **deleted**
+- `index.html` — simplified hero (full-bleed background + text overlay)
+- `css/styles.css` — hero uses cover background image with green tint overlay
+- `README.md` — structure + changelog
 
