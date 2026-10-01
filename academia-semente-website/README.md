@@ -114,3 +114,15 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `css/styles.css` — hero uses cover background image with green tint overlay
 - `README.md` — structure + changelog
 
+### 2026-10-01 — Real product images in shop
+**Files changed:**
+- `assets/products/caderno.jpg` — notebook
+- `assets/products/polo-front.jpg` — official polo (front)
+- `assets/products/polo-back.jpg` — official polo (back, available)
+- `assets/products/canetas.jpg` — pen kit
+- `assets/products/manual.jpg` — student manual
+- `index.html` — product cards use real photos; renamed Camiseta → Polo Oficial
+- `css/styles.css` — product image cover + hover zoom
+- `js/main.js` — PT/EN product title & description updated
+- `README.md` — changelog
+
