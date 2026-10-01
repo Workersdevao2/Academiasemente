@@ -140,3 +140,13 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `css/styles.css` — full-cover background; cards semi-transparent with blur
 - `README.md` — changelog
 
+### 2026-10-01 — Porquê nós card icons
+**Files changed:**
+- `assets/icons/metodologia.jpg`
+- `assets/icons/empregabilidade.jpg`
+- `assets/icons/tecnologia.jpg`
+- `assets/icons/ambiente.jpg`
+- `index.html` — numbers replaced with icon images on diff cards
+- `css/styles.css` — `.diff-icon` styles
+- `README.md` — changelog
+
