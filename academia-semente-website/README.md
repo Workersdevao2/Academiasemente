@@ -155,3 +155,8 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `css/styles.css` — `.diff-icon` now full-width square (fills the card top), `object-fit: cover`
 - `README.md` — changelog
 
+### 2026-10-01 — Revert diff icon size
+**Files changed:**
+- `css/styles.css` — icons back to compact 72×72 squares (previous preferred style)
+- `README.md` — changelog
+
