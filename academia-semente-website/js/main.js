@@ -14,25 +14,30 @@
   const drawerClose = document.getElementById('drawerClose');
   const contactForm = document.getElementById('contactForm');
   const yearEl = document.getElementById('year');
+  const cartBtn = document.getElementById('cartBtn');
+  const cartDrawer = document.getElementById('cartDrawer');
+  const cartOverlay = document.getElementById('cartOverlay');
+  const cartClose = document.getElementById('cartClose');
+  const cartBody = document.getElementById('cartBody');
+  const cartFooter = document.getElementById('cartFooter');
+  const cartCount = document.getElementById('cartCount');
+  const cartTotal = document.getElementById('cartTotal');
+  const cartClear = document.getElementById('cartClear');
+  const cartCheckout = document.getElementById('cartCheckout');
 
-  // ---------- Year ----------
   if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-  // ---------- Header scroll behaviour ----------
+  // ---------- Header scroll ----------
   let lastScroll = 0;
   let ticking = false;
 
   function updateHeader() {
     const scrollY = window.scrollY;
-
-    // Scrolled state (solid header)
     if (scrollY > 40) {
       siteHeader.classList.add('scrolled');
     } else {
       siteHeader.classList.remove('scrolled');
     }
-
-    // Announce bar hide on scroll down
     if (scrollY > 80 && scrollY > lastScroll) {
       announceBar.classList.add('hidden');
       siteHeader.style.top = '0';
@@ -40,7 +45,6 @@
       announceBar.classList.remove('hidden');
       siteHeader.style.top = '';
     }
-
     lastScroll = scrollY;
     ticking = false;
   }
@@ -71,75 +75,240 @@
     document.body.classList.remove('drawer-open');
   }
 
-  if (hamburger) hamburger.addEventListener('click', () => {
-    if (mobileDrawer.classList.contains('open')) {
-      closeDrawer();
-    } else {
-      openDrawer();
-    }
-  });
-
+  if (hamburger) {
+    hamburger.addEventListener('click', () => {
+      if (mobileDrawer.classList.contains('open')) closeDrawer();
+      else openDrawer();
+    });
+  }
   if (drawerClose) drawerClose.addEventListener('click', closeDrawer);
   if (drawerOverlay) drawerOverlay.addEventListener('click', closeDrawer);
 
-  // Close drawer on nav link click
   document.querySelectorAll('.drawer-nav a').forEach(link => {
     link.addEventListener('click', closeDrawer);
   });
 
-  // Close on Escape
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && mobileDrawer.classList.contains('open')) {
-      closeDrawer();
+    if (e.key === 'Escape') {
+      if (mobileDrawer && mobileDrawer.classList.contains('open')) closeDrawer();
+      if (cartDrawer && cartDrawer.classList.contains('open')) closeCart();
     }
+  });
+
+  // ---------- Enroll → contact form ----------
+  document.querySelectorAll('.enroll-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const course = btn.getAttribute('data-course');
+      const select = document.getElementById('interest');
+      if (select && course) select.value = course;
+    });
   });
 
   // ---------- Contact form → WhatsApp ----------
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
-
       const name = document.getElementById('name').value.trim();
       const phone = document.getElementById('phone').value.trim();
       const interest = document.getElementById('interest').value;
       const message = document.getElementById('message').value.trim();
-
-      let text = `Olá! Sou *${name}*.\n`;
-      text += `Telefone: ${phone}\n`;
-      text += `Interesse: ${interest}\n`;
-      if (message) text += `\nMensagem: ${message}`;
-
-      const encoded = encodeURIComponent(text);
-      const waUrl = `https://wa.me/244945574700?text=${encoded}`;
-
-      window.open(waUrl, '_blank', 'noopener');
+      let text = 'Olá! Sou *' + name + '*.\n';
+      text += 'Telefone: ' + phone + '\n';
+      text += 'Interesse: ' + interest + '\n';
+      if (message) text += '\nMensagem: ' + message;
+      window.open('https://wa.me/244945574700?text=' + encodeURIComponent(text), '_blank', 'noopener');
     });
   }
 
-  // ---------- Language toggle ----------
-  const translations = {
+  // ---------- CART ----------
+  let cart = JSON.parse(localStorage.getItem('as_cart') || '[]');
+
+  function saveCart() {
+    localStorage.setItem('as_cart', JSON.stringify(cart));
+  }
+
+  function formatPrice(n) {
+    return n.toLocaleString('pt-AO') + ' Kz';
+  }
+
+  function getCartQty() {
+    return cart.reduce(function (s, i) { return s + i.qty; }, 0);
+  }
+
+  function getCartTotal() {
+    return cart.reduce(function (s, i) { return s + i.price * i.qty; }, 0);
+  }
+
+  function updateCartUI() {
+    var qty = getCartQty();
+    if (cartCount) {
+      cartCount.textContent = qty;
+      cartCount.classList.toggle('visible', qty > 0);
+    }
+    if (!cartBody) return;
+
+    if (cart.length === 0) {
+      cartBody.innerHTML = '<p class="cart-empty">' + (translations[currentLang] ? translations[currentLang].cartEmpty : 'O seu carrinho está vazio.') + '</p>';
+      if (cartFooter) cartFooter.hidden = true;
+      return;
+    }
+
+    if (cartFooter) cartFooter.hidden = false;
+    if (cartTotal) cartTotal.textContent = formatPrice(getCartTotal());
+
+    cartBody.innerHTML = cart.map(function (item) {
+      var label = (currentLang === 'en' && item.nameEn) ? item.nameEn : item.name;
+      return '<div class="cart-item" data-id="' + item.id + '">' +
+        '<div class="cart-item-info">' +
+          '<div class="cart-item-name">' + label + '</div>' +
+          '<div class="cart-item-price">' + formatPrice(item.price) + '</div>' +
+          '<div class="cart-item-actions">' +
+            '<button type="button" class="qty-btn qty-minus" data-id="' + item.id + '" aria-label="Diminuir">−</button>' +
+            '<span class="qty-value">' + item.qty + '</span>' +
+            '<button type="button" class="qty-btn qty-plus" data-id="' + item.id + '" aria-label="Aumentar">+</button>' +
+            '<button type="button" class="cart-item-remove" data-id="' + item.id + '" aria-label="Remover">' +
+              '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
+            '</button>' +
+          '</div>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  function addToCart(id, name, price, nameEn) {
+    var existing = cart.find(function (i) { return i.id === id; });
+    if (existing) {
+      existing.qty += 1;
+    } else {
+      cart.push({ id: id, name: name, price: Number(price), qty: 1, nameEn: nameEn || name });
+    }
+    saveCart();
+    updateCartUI();
+    openCart();
+  }
+
+  function changeQty(id, delta) {
+    var item = cart.find(function (i) { return i.id === id; });
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) cart = cart.filter(function (i) { return i.id !== id; });
+    saveCart();
+    updateCartUI();
+  }
+
+  function removeItem(id) {
+    cart = cart.filter(function (i) { return i.id !== id; });
+    saveCart();
+    updateCartUI();
+  }
+
+  function clearCart() {
+    cart = [];
+    saveCart();
+    updateCartUI();
+  }
+
+  function openCart() {
+    if (!cartDrawer) return;
+    cartDrawer.classList.add('open');
+    if (cartOverlay) cartOverlay.classList.add('open');
+    cartDrawer.setAttribute('aria-hidden', 'false');
+    document.body.classList.add('cart-open');
+  }
+
+  function closeCart() {
+    if (!cartDrawer) return;
+    cartDrawer.classList.remove('open');
+    if (cartOverlay) cartOverlay.classList.remove('open');
+    cartDrawer.setAttribute('aria-hidden', 'true');
+    document.body.classList.remove('cart-open');
+  }
+
+  if (cartBtn) cartBtn.addEventListener('click', openCart);
+  if (cartClose) cartClose.addEventListener('click', closeCart);
+  if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
+  if (cartClear) cartClear.addEventListener('click', clearCart);
+
+  if (cartCheckout) {
+    cartCheckout.addEventListener('click', function () {
+      if (cart.length === 0) return;
+      var text = 'Olá! Gostaria de encomendar os seguintes produtos:\n\n';
+      cart.forEach(function (item) {
+        var label = (currentLang === 'en' && item.nameEn) ? item.nameEn : item.name;
+        text += '• ' + label + ' × ' + item.qty + ' — ' + formatPrice(item.price * item.qty) + '\n';
+      });
+      text += '\n*Total: ' + formatPrice(getCartTotal()) + '*';
+      window.open('https://wa.me/244945574700?text=' + encodeURIComponent(text), '_blank', 'noopener');
+    });
+  }
+
+  document.querySelectorAll('.add-to-cart').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var card = btn.closest('.product-card');
+      if (!card) return;
+      addToCart(card.dataset.id, card.dataset.name, card.dataset.price, card.dataset.nameEn);
+    });
+  });
+
+  if (cartBody) {
+    cartBody.addEventListener('click', function (e) {
+      var minus = e.target.closest('.qty-minus');
+      var plus = e.target.closest('.qty-plus');
+      var remove = e.target.closest('.cart-item-remove');
+      if (minus) changeQty(minus.dataset.id, -1);
+      if (plus) changeQty(plus.dataset.id, 1);
+      if (remove) removeItem(remove.dataset.id);
+    });
+  }
+
+  // Swipe right to close cart (mobile)
+  var touchStartX = 0;
+  var touchCurrentX = 0;
+  var isSwiping = false;
+
+  if (cartDrawer) {
+    cartDrawer.addEventListener('touchstart', function (e) {
+      touchStartX = e.touches[0].clientX;
+      isSwiping = true;
+    }, { passive: true });
+
+    cartDrawer.addEventListener('touchmove', function (e) {
+      if (!isSwiping) return;
+      touchCurrentX = e.touches[0].clientX;
+      var diff = touchCurrentX - touchStartX;
+      if (diff > 0) cartDrawer.style.transform = 'translateX(' + diff + 'px)';
+    }, { passive: true });
+
+    cartDrawer.addEventListener('touchend', function () {
+      if (!isSwiping) return;
+      isSwiping = false;
+      var diff = touchCurrentX - touchStartX;
+      cartDrawer.style.transform = '';
+      if (diff > 80) closeCart();
+      touchStartX = 0;
+      touchCurrentX = 0;
+    });
+  }
+
+  updateCartUI();
+
+  // ---------- Language ----------
+  var translations = {
     pt: {
-      // Announce
       announce: 'Inscrições abertas',
       announceAccent: 'Teste de nível gratuito',
       tagline: 'Cultivando conhecimento',
-
-      // Nav
       navHome: 'Início',
       navAbout: 'Sobre',
       navCourses: 'Cursos',
       navProducts: 'Produtos',
       navContact: 'Contacto',
-
-      // Hero
       heroEyebrow: 'Formação em Inglês · Angola',
       heroTitle: 'Aprenda inglês<br>para a vida real',
       heroSubtitle: 'Metodologia exclusiva que transforma o português que você já fala em inglês fluente — em até 12 meses.',
       heroCta: 'Ver cursos',
       heroCta2: 'Falar no WhatsApp',
       scroll: 'Scroll',
-
-      // About
       aboutEyebrow: 'A Academia',
       aboutTitle: 'Toda grande conquista<br>começa por uma semente',
       aboutP1: 'A Academia Semente nasceu da necessidade de preencher as lacunas no ensino de inglês em Angola e das dificuldades que falantes de português enfrentam ao aprender esta língua.',
@@ -153,8 +322,6 @@
       missionText: 'Formar angolanos comunicativos, empregáveis e confiantes em inglês, em até 12 meses, usando tecnologia e prática real.',
       visionTitle: 'Visão',
       visionText: 'Ser o centro de inglês de referência em Angola que forma líderes bilingues, conectando angolanos a oportunidades globais.',
-
-      // Courses
       coursesEyebrow: 'Modalidades',
       coursesTitle: 'Escolha o formato<br>que se adapta a si',
       coursesDesc: 'Aulas presenciais, online ou ao domicílio. Todas com a mesma metodologia exclusiva e acompanhamento individual.',
@@ -186,8 +353,6 @@
       morning: 'Manhã',
       afternoon: 'Tarde',
       freeTest: 'Teste de nível gratuito · Sem compromisso',
-
-      // Products
       productsEyebrow: 'Loja',
       productsTitle: 'Materiais e produtos<br>oficiais',
       productsDesc: 'Leve a Academia Semente consigo. Materiais pensados para acelerar a sua evolução.',
@@ -199,9 +364,7 @@
       prod3Desc: 'Conjunto de 3 canetas premium com a marca Academia Semente.',
       prod4Title: 'Manual do Aluno',
       prod4Desc: 'Guia completo da metodologia Semente com exercícios e padrões avançados.',
-      buyBtn: 'Comprar',
-
-      // Diff
+      buyBtn: 'Adicionar',
       diffEyebrow: 'Porquê nós',
       diffTitle: 'O que nos torna<br>diferentes',
       diff1Title: 'Metodologia exclusiva',
@@ -212,8 +375,6 @@
       diff3Text: 'IA 24h para prática + professor como coach de comunicação.',
       diff4Title: 'Ambiente sem julgamento',
       diff4Text: 'Sala onde errar é normal. Quebramos o medo de falar.',
-
-      // Contact
       contactEyebrow: 'Contacto',
       contactTitle: 'Comece a sua jornada',
       contactDesc: 'Envie-nos uma mensagem. Respondemos rapidamente via WhatsApp.',
@@ -234,30 +395,29 @@
       optDomiciliar: 'Curso Domiciliar',
       optProducts: 'Produtos / Materiais',
       optOther: 'Outro',
-
-      // Footer
       footerTag: 'Cultivando conhecimento, formando futuros.',
-      rights: 'Todos os direitos reservados.'
+      rights: 'Todos os direitos reservados.',
+      cartTitle: 'Carrinho',
+      cartEmpty: 'O seu carrinho está vazio.',
+      cartTotal: 'Total',
+      cartClear: 'Limpar tudo',
+      cartCheckout: 'Finalizar no WhatsApp'
     },
-
     en: {
       announce: 'Enrolments open',
       announceAccent: 'Free level test',
       tagline: 'Cultivating knowledge',
-
       navHome: 'Home',
       navAbout: 'About',
       navCourses: 'Courses',
       navProducts: 'Products',
       navContact: 'Contact',
-
       heroEyebrow: 'English Training · Angola',
       heroTitle: 'Learn English<br>for real life',
       heroSubtitle: 'Exclusive methodology that turns the Portuguese you already speak into fluent English — in up to 12 months.',
       heroCta: 'View courses',
       heroCta2: 'Chat on WhatsApp',
       scroll: 'Scroll',
-
       aboutEyebrow: 'The Academy',
       aboutTitle: 'Every great achievement<br>begins with a seed',
       aboutP1: 'Academia Semente was born to fill the gaps in English teaching in Angola and the difficulties Portuguese speakers face when learning this language.',
@@ -271,7 +431,6 @@
       missionText: 'Train communicative, employable and confident Angolans in English within 12 months, using technology and real practice.',
       visionTitle: 'Vision',
       visionText: 'To be the reference English centre in Angola that forms bilingual leaders, connecting Angolans to global opportunities.',
-
       coursesEyebrow: 'Formats',
       coursesTitle: 'Choose the format<br>that fits you',
       coursesDesc: 'In-person, online or home classes. All with the same exclusive methodology and individual support.',
@@ -303,7 +462,6 @@
       morning: 'Morning',
       afternoon: 'Afternoon',
       freeTest: 'Free level test · No commitment',
-
       productsEyebrow: 'Shop',
       productsTitle: 'Official materials<br>& products',
       productsDesc: 'Take Academia Semente with you. Materials designed to accelerate your progress.',
@@ -315,8 +473,7 @@
       prod3Desc: 'Set of 3 premium pens with the Academia Semente brand.',
       prod4Title: 'Student Manual',
       prod4Desc: 'Complete guide to the Semente methodology with exercises and advanced patterns.',
-      buyBtn: 'Buy',
-
+      buyBtn: 'Add',
       diffEyebrow: 'Why us',
       diffTitle: 'What makes us<br>different',
       diff1Title: 'Exclusive methodology',
@@ -327,7 +484,6 @@
       diff3Text: '24h AI for practice + teacher as communication coach.',
       diff4Title: 'Judgement-free space',
       diff4Text: 'A room where mistakes are normal. We break the fear of speaking.',
-
       contactEyebrow: 'Contact',
       contactTitle: 'Start your journey',
       contactDesc: 'Send us a message. We reply quickly via WhatsApp.',
@@ -348,57 +504,44 @@
       optDomiciliar: 'Home Course',
       optProducts: 'Products / Materials',
       optOther: 'Other',
-
       footerTag: 'Cultivating knowledge, forming futures.',
-      rights: 'All rights reserved.'
+      rights: 'All rights reserved.',
+      cartTitle: 'Cart',
+      cartEmpty: 'Your cart is empty.',
+      cartTotal: 'Total',
+      cartClear: 'Clear all',
+      cartCheckout: 'Checkout on WhatsApp'
     }
   };
 
-  let currentLang = 'pt';
+  var currentLang = 'pt';
 
   function setLanguage(lang) {
     currentLang = lang;
     document.documentElement.lang = lang;
-
-    // Update active button
-    document.querySelectorAll('.lang-btn').forEach(btn => {
+    document.querySelectorAll('.lang-btn').forEach(function (btn) {
       btn.classList.toggle('active', btn.dataset.lang === lang);
     });
-
-    const t = translations[lang];
-
-    // Text content
-    document.querySelectorAll('[data-i18n]').forEach(el => {
-      const key = el.getAttribute('data-i18n');
-      if (t[key] !== undefined) {
-        el.innerHTML = t[key];
-      }
+    var t = translations[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) el.innerHTML = t[key];
     });
-
-    // Placeholders
-    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
-      const key = el.getAttribute('data-i18n-placeholder');
-      if (t[key] !== undefined) {
-        el.placeholder = t[key];
-      }
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(function (el) {
+      var key = el.getAttribute('data-i18n-placeholder');
+      if (t[key] !== undefined) el.placeholder = t[key];
     });
-
-    // Select options
-    document.querySelectorAll('select option[data-i18n]').forEach(opt => {
-      const key = opt.getAttribute('data-i18n');
-      if (t[key] !== undefined) {
-        opt.textContent = t[key];
-      }
+    document.querySelectorAll('select option[data-i18n]').forEach(function (opt) {
+      var key = opt.getAttribute('data-i18n');
+      if (t[key] !== undefined) opt.textContent = t[key];
     });
+    updateCartUI();
   }
 
-  document.querySelectorAll('.lang-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      setLanguage(btn.dataset.lang);
-    });
+  document.querySelectorAll('.lang-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () { setLanguage(btn.dataset.lang); });
   });
 
-  // Init
   setLanguage('pt');
 
 })();
