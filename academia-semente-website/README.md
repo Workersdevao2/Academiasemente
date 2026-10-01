@@ -102,3 +102,8 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `assets/hero-man.png` — replaced with new full-shoulder cutout (white bg removed via flood-fill)
 - `README.md` — changelog
 
+### 2026-10-01 — Mobile hero: text over the man
+**Files changed:**
+- `css/styles.css` — on mobile, man is positioned behind the hero text (absolute, bottom-aligned); text stays in front with light gradient for readability. Desktop split layout unchanged.
+- `README.md` — changelog
+
