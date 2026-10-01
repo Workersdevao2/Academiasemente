@@ -160,3 +160,10 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `css/styles.css` — icons back to compact 72×72 squares (previous preferred style)
 - `README.md` — changelog
 
+### 2026-10-01 — Horários disponíveis icon
+**Files changed:**
+- `assets/icons/horarios.jpg` — calendar + clock icon
+- `index.html` — icon in schedules card header
+- `css/styles.css` — `.horarios-header` / `.horarios-icon` styles
+- `README.md` — changelog
+
