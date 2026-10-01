@@ -150,3 +150,8 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `css/styles.css` — `.diff-icon` styles
 - `README.md` — changelog
 
+### 2026-10-01 — Diff icons fill card squares
+**Files changed:**
+- `css/styles.css` — `.diff-icon` now full-width square (fills the card top), `object-fit: cover`
+- `README.md` — changelog
+
