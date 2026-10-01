@@ -1143,13 +1143,12 @@ h1, h2, h3, h4 {
 }
 
 .diff-icon {
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  max-width: 140px;
-  margin: 0 auto 1.15rem;
+  width: 72px;
+  height: 72px;
+  margin-bottom: 1rem;
   border-radius: 12px;
   overflow: hidden;
-  background: transparent;
+  background: #f7f9f6;
 }
 
 .diff-icon img {
@@ -1158,12 +1157,6 @@ h1, h2, h3, h4 {
   object-fit: cover;
   object-position: center;
   display: block;
-}
-
-@media (min-width: 900px) {
-  .diff-icon {
-    max-width: none;
-  }
 }
 
 .diff-item h3 {
