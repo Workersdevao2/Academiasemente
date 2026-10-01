@@ -40,7 +40,9 @@ academia-semente-website/
 ├── index.html
 ├── css/styles.css
 ├── js/main.js
-├── assets/hero.jpg
+├── assets/
+│   ├── hero-man.png   ← cutout (used on site)
+│   └── hero.jpg       ← original full artwork
 └── README.md
 ```
 
@@ -79,3 +81,13 @@ python3 -m http.server 8080
 - `js/main.js` — full cart logic (localStorage, +/−, clear, WhatsApp checkout, swipe-to-close), enroll pre-select, updated translations
 - `assets/hero.jpg` — added ambassador hero image
 - `README.md` — updated features and changelog
+
+### 2026-10-01 — Hero man cutout on brand green
+**Files changed:**
+- `assets/hero-man.png` — green background removed; only the ambassador remains (transparent PNG)
+- `index.html` — hero uses `hero-man.png` instead of full artwork
+- `css/styles.css` — hero image sizing/shadow tuned for cutout on solid green
+- `README.md` — updated structure and changelog
+
+The site hero keeps the original solid brand green; only the man is overlaid.
+
