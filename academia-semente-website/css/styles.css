@@ -1149,7 +1149,36 @@ h1, h2, h3, h4 {
 
 /* ========== CONTACTO ========== */
 .contacto {
+  position: relative;
   background: var(--white);
+  overflow: hidden;
+}
+
+.contacto-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/contact-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.contacto-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(250, 251, 250, 0.82) 50%,
+    rgba(232, 245, 236, 0.85) 100%
+  );
+}
+
+.contacto > .container {
+  position: relative;
+  z-index: 1;
 }
 
 .contact-grid {
@@ -1225,7 +1254,10 @@ h1, h2, h3, h4 {
   border: 1px solid var(--gray-200);
   border-radius: var(--radius);
   padding: 2rem;
-  background: var(--off-white);
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
 }
 
 .form-group {
