@@ -11,12 +11,19 @@ Professional luxury website for **Academia Semente**, an English language academ
 - Mobile-first, fully responsive
 - Portuguese (default) + English language toggle
 - Luxury visual style: thin 1–1.5px lines, generous whitespace, light typography
-- Transparent → solid header on scroll
+- Transparent → solid header on scroll (fixed dark-text state)
 - Thin-line hamburger with elegant X animation
 - Left slide-in mobile drawer
 - Announcement bar that hides on scroll
+- Hero with ambassador image (desktop split layout)
 - Services & pricing section (Online / Presencial / Domiciliar)
-- Physical products shop section
+- Service cards link to contact form and pre-select the course
+- Physical products shop with **shopping cart**
+  - Add to cart, quantity +/−, remove item
+  - Clear all, total, checkout via WhatsApp
+  - Cart drawer slides from the right
+  - Swipe right to close on mobile
+  - Cart persists in localStorage
 - Contact form that opens WhatsApp with pre-filled message
 - Smooth scroll navigation
 
@@ -26,6 +33,16 @@ Professional luxury website for **Academia Semente**, an English language academ
 - Location: Kilamba, Ed R29, Andar 6, Ap 63
 - Instagram: https://www.instagram.com/academiasemente
 - Facebook: https://www.facebook.com/profile.php?id=61584786747541
+
+## Project structure
+```
+academia-semente-website/
+├── index.html
+├── css/styles.css
+├── js/main.js
+├── assets/hero.jpg
+└── README.md
+```
 
 ## Deploy to Cloudflare Pages
 
@@ -41,8 +58,6 @@ Professional luxury website for **Academia Semente**, an English language academ
 Alternatively, drag-and-drop the folder into Cloudflare Pages for a quick deploy.
 
 ## Local preview
-Simply open `index.html` in a browser, or use any static server:
-
 ```bash
 npx serve .
 # or
@@ -50,6 +65,17 @@ python3 -m http.server 8080
 ```
 
 ## Customisation
-- Brand colours are defined as CSS variables in `css/styles.css` (`:root`)
-- All text content is managed in `js/main.js` under the `translations` object
-- Prices and product details can be edited directly in `index.html`
+- Brand colours → CSS variables in `css/styles.css` (`:root`)
+- All text content → `js/main.js` (`translations` object)
+- Prices & product details → `index.html`
+- Hero image → `assets/hero.jpg`
+
+## Changelog
+
+### 2026-10-01 — Cart, hero image & header fix
+**Files changed:**
+- `index.html` — hero image, enroll links to form, product “Adicionar” buttons, cart drawer markup, cart icon in header
+- `css/styles.css` — fixed scrolled header text colours, hero split layout + image, cart drawer styles, header-actions
+- `js/main.js` — full cart logic (localStorage, +/−, clear, WhatsApp checkout, swipe-to-close), enroll pre-select, updated translations
+- `assets/hero.jpg` — added ambassador hero image
+- `README.md` — updated features and changelog

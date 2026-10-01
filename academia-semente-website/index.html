@@ -39,11 +39,22 @@
         <span class="brand-tagline" data-i18n="tagline">Cultivando conhecimento</span>
       </a>
 
-      <!-- Language toggle (desktop right / mobile right) -->
-      <div class="lang-toggle">
-        <button class="lang-btn active" data-lang="pt" aria-label="Português">PT</button>
-        <span class="lang-divider">|</span>
-        <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+      <!-- Right actions: cart + language -->
+      <div class="header-actions">
+        <button class="cart-btn" id="cartBtn" aria-label="Carrinho">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+            <path d="M6 6h15l-1.5 9h-12z"/>
+            <circle cx="9" cy="20" r="1"/>
+            <circle cx="18" cy="20" r="1"/>
+            <path d="M6 6L5 3H2"/>
+          </svg>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <div class="lang-toggle">
+          <button class="lang-btn active" data-lang="pt" aria-label="Português">PT</button>
+          <span class="lang-divider">|</span>
+          <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+        </div>
       </div>
     </div>
 
@@ -87,13 +98,18 @@
     <!-- ========== HERO ========== -->
     <section class="hero" id="inicio">
       <div class="hero-bg"></div>
-      <div class="hero-content">
-        <p class="hero-eyebrow" data-i18n="heroEyebrow">Formação em Inglês · Angola</p>
-        <h1 class="hero-title" data-i18n="heroTitle">Aprenda inglês<br>para a vida real</h1>
-        <p class="hero-subtitle" data-i18n="heroSubtitle">Metodologia exclusiva que transforma o português que você já fala em inglês fluente — em até 12 meses.</p>
-        <div class="hero-cta">
-          <a href="#cursos" class="btn btn-primary" data-i18n="heroCta">Ver cursos</a>
-          <a href="https://wa.me/244945574700?text=Olá! Gostaria de saber mais sobre os cursos da Academia Semente." target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="heroCta2">Falar no WhatsApp</a>
+      <div class="hero-inner">
+        <div class="hero-content">
+          <p class="hero-eyebrow" data-i18n="heroEyebrow">Formação em Inglês · Angola</p>
+          <h1 class="hero-title" data-i18n="heroTitle">Aprenda inglês<br>para a vida real</h1>
+          <p class="hero-subtitle" data-i18n="heroSubtitle">Metodologia exclusiva que transforma o português que você já fala em inglês fluente — em até 12 meses.</p>
+          <div class="hero-cta">
+            <a href="#cursos" class="btn btn-primary" data-i18n="heroCta">Ver cursos</a>
+            <a href="https://wa.me/244945574700?text=Olá! Gostaria de saber mais sobre os cursos da Academia Semente." target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="heroCta2">Falar no WhatsApp</a>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <img src="assets/hero.jpg" alt="Academia Semente — Embaixador" class="hero-img" width="520" height="650">
         </div>
       </div>
       <div class="hero-scroll">
@@ -177,7 +193,7 @@
               <li data-i18n="onlineF4">IA de apoio 24 horas</li>
               <li data-i18n="onlineF5">Feedback mensal em vídeo</li>
             </ul>
-            <a href="https://wa.me/244945574700?text=Olá! Tenho interesse no curso ONLINE da Academia Semente (10.525 Kz/mês)." target="_blank" rel="noopener" class="btn btn-outline" data-i18n="enrollBtn">Inscrever-me</a>
+            <a href="#contacto" class="btn btn-outline enroll-btn" data-course="Online" data-i18n="enrollBtn">Inscrever-me</a>
           </article>
 
           <!-- Presencial (featured) -->
@@ -199,7 +215,7 @@
               <li data-i18n="presencialF4">Eventos reais (English Day, debates)</li>
               <li data-i18n="presencialF5">Comunidade WhatsApp só em inglês</li>
             </ul>
-            <a href="https://wa.me/244945574700?text=Olá! Tenho interesse no curso PRESENCIAL da Academia Semente (15.225 Kz/mês)." target="_blank" rel="noopener" class="btn btn-primary" data-i18n="enrollBtn">Inscrever-me</a>
+            <a href="#contacto" class="btn btn-primary enroll-btn" data-course="Presencial" data-i18n="enrollBtn">Inscrever-me</a>
           </article>
 
           <!-- Domiciliar -->
@@ -220,7 +236,7 @@
               <li data-i18n="domiciliarF4">Plano de estudos personalizado</li>
               <li data-i18n="domiciliarF5">Acompanhamento intensivo</li>
             </ul>
-            <a href="https://wa.me/244945574700?text=Olá! Tenho interesse no curso DOMICILIAR da Academia Semente (100.000 Kz/mês)." target="_blank" rel="noopener" class="btn btn-outline" data-i18n="enrollBtn">Inscrever-me</a>
+            <a href="#contacto" class="btn btn-outline enroll-btn" data-course="Domiciliar" data-i18n="enrollBtn">Inscrever-me</a>
           </article>
         </div>
 
@@ -251,7 +267,7 @@
         </div>
 
         <div class="products-grid">
-          <article class="product-card">
+          <article class="product-card" data-id="caderno" data-name="Caderno de Padrões" data-price="8500" data-name-en="Patterns Notebook">
             <div class="product-image">
               <div class="product-placeholder">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
@@ -265,12 +281,12 @@
               <p data-i18n="prod1Desc">Caderno exclusivo com os padrões da metodologia Semente para prática diária.</p>
               <div class="product-price">
                 <span class="price">8.500 Kz</span>
-                <a href="https://wa.me/244945574700?text=Olá! Gostaria de comprar o Caderno de Padrões (8.500 Kz)." target="_blank" rel="noopener" class="btn btn-sm" data-i18n="buyBtn">Comprar</a>
+                <button type="button" class="btn btn-sm add-to-cart" data-i18n="buyBtn">Adicionar</button>
               </div>
             </div>
           </article>
 
-          <article class="product-card">
+          <article class="product-card" data-id="camiseta" data-name="Camiseta Oficial" data-price="12000" data-name-en="Official T-shirt">
             <div class="product-image">
               <div class="product-placeholder">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
@@ -283,12 +299,12 @@
               <p data-i18n="prod2Desc">Camiseta premium com o logotipo Academia Semente. Algodão de alta qualidade.</p>
               <div class="product-price">
                 <span class="price">12.000 Kz</span>
-                <a href="https://wa.me/244945574700?text=Olá! Gostaria de comprar a Camiseta Oficial (12.000 Kz)." target="_blank" rel="noopener" class="btn btn-sm" data-i18n="buyBtn">Comprar</a>
+                <button type="button" class="btn btn-sm add-to-cart" data-i18n="buyBtn">Adicionar</button>
               </div>
             </div>
           </article>
 
-          <article class="product-card">
+          <article class="product-card" data-id="canetas" data-name="Kit Canetas Semente" data-price="3500" data-name-en="Semente Pen Kit">
             <div class="product-image">
               <div class="product-placeholder">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
@@ -304,12 +320,12 @@
               <p data-i18n="prod3Desc">Conjunto de 3 canetas premium com a marca Academia Semente.</p>
               <div class="product-price">
                 <span class="price">3.500 Kz</span>
-                <a href="https://wa.me/244945574700?text=Olá! Gostaria de comprar o Kit Canetas Semente (3.500 Kz)." target="_blank" rel="noopener" class="btn btn-sm" data-i18n="buyBtn">Comprar</a>
+                <button type="button" class="btn btn-sm add-to-cart" data-i18n="buyBtn">Adicionar</button>
               </div>
             </div>
           </article>
 
-          <article class="product-card">
+          <article class="product-card" data-id="manual" data-name="Manual do Aluno" data-price="15000" data-name-en="Student Manual">
             <div class="product-image">
               <div class="product-placeholder">
                 <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
@@ -323,7 +339,7 @@
               <p data-i18n="prod4Desc">Guia completo da metodologia Semente com exercícios e padrões avançados.</p>
               <div class="product-price">
                 <span class="price">15.000 Kz</span>
-                <a href="https://wa.me/244945574700?text=Olá! Gostaria de comprar o Manual do Aluno (15.000 Kz)." target="_blank" rel="noopener" class="btn btn-sm" data-i18n="buyBtn">Comprar</a>
+                <button type="button" class="btn btn-sm add-to-cart" data-i18n="buyBtn">Adicionar</button>
               </div>
             </div>
           </article>
@@ -452,6 +468,30 @@
       </div>
     </div>
   </footer>
+
+  <!-- ========== CART DRAWER (right) ========== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer" aria-hidden="true">
+    <div class="cart-header">
+      <h3 data-i18n="cartTitle">Carrinho</h3>
+      <button class="cart-close" id="cartClose" aria-label="Fechar">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+          <path d="M18 6L6 18M6 6l12 12"/>
+        </svg>
+      </button>
+    </div>
+    <div class="cart-body" id="cartBody">
+      <p class="cart-empty" data-i18n="cartEmpty">O seu carrinho está vazio.</p>
+    </div>
+    <div class="cart-footer" id="cartFooter" hidden>
+      <div class="cart-total-row">
+        <span data-i18n="cartTotal">Total</span>
+        <strong id="cartTotal">0 Kz</strong>
+      </div>
+      <button type="button" class="btn btn-outline btn-full cart-clear" id="cartClear" data-i18n="cartClear">Limpar tudo</button>
+      <button type="button" class="btn btn-primary btn-full" id="cartCheckout" data-i18n="cartCheckout">Finalizar no WhatsApp</button>
+    </div>
+  </aside>
 
   <script src="js/main.js"></script>
 </body>
