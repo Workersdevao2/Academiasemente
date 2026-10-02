@@ -35,8 +35,8 @@
   function updateHeader() {
     if (!siteHeader) { ticking = false; return; }
     const scrollY = window.scrollY;
-    var isEnrollPage = document.body.classList.contains('page-enroll');
-    if (isEnrollPage || scrollY > 40) {
+    // Same behaviour on home and enrol: transparent over hero, solid after scroll
+    if (scrollY > 40) {
       siteHeader.classList.add('scrolled');
     } else {
       siteHeader.classList.remove('scrolled');
@@ -60,6 +60,9 @@
       ticking = true;
     }
   }, { passive: true });
+
+  // Initial state (important on enrol page so header is not stuck scrolled)
+  updateHeader();
 
   // ---------- Mobile drawer ----------
   function openDrawer() {
