@@ -191,3 +191,9 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `css/styles.css` — `.sobre-bg`, `.mv-icon`; mv-cards glass style
 - `README.md` — changelog
 
+### 2026-10-02 — Mobile cart fixes
+**Files changed:**
+- `js/main.js` — cart actions delegated on drawer (X remove, Limpar tudo, WhatsApp); swipe ignores buttons; WhatsApp opens via anchor (iOS-friendly)
+- `css/styles.css` — larger touch targets; SVG pointer-events none; footer buttons touch-action
+- `README.md` — changelog
+
