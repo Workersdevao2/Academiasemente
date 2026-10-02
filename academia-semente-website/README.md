@@ -17,18 +17,22 @@ Professional luxury website for **Academia Semente**, an English language academ
 - Announcement bar that hides on scroll
 - Hero with reception desk image
 - Services & pricing section (Online / Presencial / Domiciliar)
-- Service cards link to **enrolment form** and pre-select the course
+- Service cards link to **dedicated enrolment page** and pre-select the course (`?course=`)
 - Physical products shop with **shopping cart**
   - Add to cart, quantity +/−, remove item
   - Clear all, total, checkout via WhatsApp
   - Cart drawer slides from the right
   - Swipe right to close on mobile
   - Cart persists in localStorage
-- **Enrolment form** (`#inscricao`) that opens WhatsApp with a pre-filled enrolment message
-- Contact details in the **footer** (location, WhatsApp, email, social)
+- **Contact section** on home (`#contacto`) with general message form → WhatsApp
+- **Dedicated enrolment page** (`inscricao.html`) with full form:
+  - Nome, Telefone, Morada *, Província *, Município *
+  - Curso pretendido, Horários disponíveis * (08h–10h Manhã / 14h–16h Tarde / Flexível)
+  - Submits to WhatsApp with pre-filled enrolment message
+- Contact details also in the **footer**
 - Smooth scroll navigation
 
-## Contact data (shown in footer)
+## Contact data (footer + contact section)
 - WhatsApp: +244 945 574 700
 - Email: academiasemente@gmail.com
 - Location: Kilamba, Ed R29, Andar 6, Ap 63, Luanda, Angola
@@ -38,11 +42,12 @@ Professional luxury website for **Academia Semente**, an English language academ
 ## Project structure
 ```
 academia-semente-website/
-├── index.html
+├── index.html          ← home (includes contact form)
+├── inscricao.html      ← dedicated enrolment page
 ├── css/styles.css
 ├── js/main.js
 ├── assets/
-│   └── hero.jpg       ← reception / brand hero photo
+│   └── hero.jpg
 └── README.md
 ```
 
@@ -74,14 +79,28 @@ python3 -m http.server 8080
 
 ## Changelog
 
-### 2026-10-02 — Contact → Enrolment + footer contact
+### 2026-10-02 — Contact form restored + dedicated enrolment page
 **What changed**
-- Contact section replaced by **Inscrição / Enrolment** (`#inscricao`)
-- Form is enrolment-focused (name, phone, course, optional notes) → WhatsApp
-- All contact details moved into the footer
-- Nav label: Inscrição / Enrol
+- Home **Contacto** section restored with general contact form (WhatsApp)
+- New dedicated page **`inscricao.html`** for enrolment
+- Enrolment form fields: Nome, Telefone, **Morada ***, **Província ***, **Município ***, Curso, **Horários disponíveis ***, Notas
+- Schedule options: 08h–10h Manhã · 14h–16h Tarde · Flexível
+- Course buttons open `inscricao.html?course=Online|Presencial|Domiciliar`
+- Nav: Contacto + Inscrição
 
 **Files changed (download these for GitHub):**
+- `index.html`
+- `inscricao.html` *(new)*
+- `css/styles.css`
+- `js/main.js`
+- `README.md`
+
+### 2026-10-02 — Contact → Enrolment + footer contact
+**What changed**
+- Contact section temporarily replaced by enrolment (superseded by entry above)
+- Contact details in footer
+
+**Files changed:**
 - `index.html`
 - `css/styles.css`
 - `js/main.js`
