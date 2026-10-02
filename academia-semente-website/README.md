@@ -79,6 +79,18 @@ python3 -m http.server 8080
 
 ## Changelog
 
+### 2026-10-02 — Enrolment page hero
+**What changed**
+- Hero section on `inscricao.html` using the same `assets/hero.jpg` as the homepage
+- Enrolment-focused title, subtitle and CTAs (form + WhatsApp)
+- Header transparent over hero, solid on scroll
+
+**Files changed (download these for GitHub):**
+- `inscricao.html`
+- `css/styles.css`
+- `js/main.js`
+- `README.md`
+
 ### 2026-10-02 — Contact form restored + dedicated enrolment page
 **What changed**
 - Home **Contacto** section restored with general contact form (WhatsApp)
