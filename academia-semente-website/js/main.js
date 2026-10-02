@@ -227,18 +227,60 @@
   if (cartBtn) cartBtn.addEventListener('click', openCart);
   if (cartClose) cartClose.addEventListener('click', closeCart);
   if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
-  if (cartClear) cartClear.addEventListener('click', clearCart);
 
-  if (cartCheckout) {
-    cartCheckout.addEventListener('click', function () {
-      if (cart.length === 0) return;
-      var text = 'Olá! Gostaria de encomendar os seguintes produtos:\n\n';
-      cart.forEach(function (item) {
-        var label = (currentLang === 'en' && item.nameEn) ? item.nameEn : item.name;
-        text += '• ' + label + ' × ' + item.qty + ' — ' + formatPrice(item.price * item.qty) + '\n';
-      });
-      text += '\n*Total: ' + formatPrice(getCartTotal()) + '*';
-      window.open('https://wa.me/244945574700?text=' + encodeURIComponent(text), '_blank', 'noopener');
+  function checkoutWhatsApp() {
+    if (cart.length === 0) return;
+    var msg = 'Olá! Gostaria de encomendar os seguintes produtos:\n\n';
+    cart.forEach(function (item) {
+      var label = (currentLang === 'en' && item.nameEn) ? item.nameEn : item.name;
+      msg += '• ' + label + ' × ' + item.qty + ' — ' + formatPrice(item.price * item.qty) + '\n';
+    });
+    msg += '\n*Total: ' + formatPrice(getCartTotal()) + '*';
+    var url = 'https://wa.me/244945574700?text=' + encodeURIComponent(msg);
+    // Mobile-friendly open (window.open is often blocked on iOS)
+    var a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  // Delegate all cart actions from the drawer (survives re-renders, works on SVG taps)
+  if (cartDrawer) {
+    cartDrawer.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest) return;
+
+      if (t.closest('#cartClear') || t.closest('.cart-clear')) {
+        e.preventDefault();
+        clearCart();
+        return;
+      }
+      if (t.closest('#cartCheckout')) {
+        e.preventDefault();
+        checkoutWhatsApp();
+        return;
+      }
+      var minus = t.closest('.qty-minus');
+      if (minus) {
+        e.preventDefault();
+        changeQty(minus.getAttribute('data-id'), -1);
+        return;
+      }
+      var plus = t.closest('.qty-plus');
+      if (plus) {
+        e.preventDefault();
+        changeQty(plus.getAttribute('data-id'), 1);
+        return;
+      }
+      var remove = t.closest('.cart-item-remove');
+      if (remove) {
+        e.preventDefault();
+        removeItem(remove.getAttribute('data-id'));
+        return;
+      }
     });
   }
 
@@ -250,33 +292,35 @@
     });
   });
 
-  if (cartBody) {
-    cartBody.addEventListener('click', function (e) {
-      var minus = e.target.closest('.qty-minus');
-      var plus = e.target.closest('.qty-plus');
-      var remove = e.target.closest('.cart-item-remove');
-      if (minus) changeQty(minus.dataset.id, -1);
-      if (plus) changeQty(plus.dataset.id, 1);
-      if (remove) removeItem(remove.dataset.id);
-    });
-  }
-
-  // Swipe right to close cart (mobile)
+  // Swipe right to close cart — ignore when starting on a button/link
   var touchStartX = 0;
   var touchCurrentX = 0;
   var isSwiping = false;
+  var swipeArmed = false;
 
   if (cartDrawer) {
     cartDrawer.addEventListener('touchstart', function (e) {
+      var el = e.target;
+      if (el && el.closest && el.closest('button, a, input, select, textarea, .qty-btn, .cart-item-remove, .cart-clear, #cartCheckout, #cartClear, #cartClose')) {
+        isSwiping = false;
+        swipeArmed = false;
+        return;
+      }
       touchStartX = e.touches[0].clientX;
+      touchCurrentX = touchStartX;
       isSwiping = true;
+      swipeArmed = false;
     }, { passive: true });
 
     cartDrawer.addEventListener('touchmove', function (e) {
       if (!isSwiping) return;
       touchCurrentX = e.touches[0].clientX;
       var diff = touchCurrentX - touchStartX;
-      if (diff > 0) cartDrawer.style.transform = 'translateX(' + diff + 'px)';
+      // Only start visual swipe after a threshold so taps still register as clicks
+      if (diff > 12) {
+        swipeArmed = true;
+        cartDrawer.style.transform = 'translateX(' + diff + 'px)';
+      }
     }, { passive: true });
 
     cartDrawer.addEventListener('touchend', function () {
@@ -284,9 +328,10 @@
       isSwiping = false;
       var diff = touchCurrentX - touchStartX;
       cartDrawer.style.transform = '';
-      if (diff > 80) closeCart();
+      if (swipeArmed && diff > 80) closeCart();
       touchStartX = 0;
       touchCurrentX = 0;
+      swipeArmed = false;
     });
   }
 
