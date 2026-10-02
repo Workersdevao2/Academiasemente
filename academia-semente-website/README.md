@@ -203,3 +203,17 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `js/main.js` — PT and EN translations cleaned; WhatsApp line uses hyphen
 - `README.md` — changelog
 
+### 2026-10-02 — Cart footer hides when empty
+**Files changed:**
+- `css/styles.css` — `.cart-footer[hidden] { display: none !important }` (flex was overriding hidden)
+- `js/main.js` — reset total to 0 and force hidden attribute on clear
+- `README.md` — changelog
+
+### 2026-10-02 — Polo product image slider
+**Files changed:**
+- `index.html` — polo card: front/back slider with dots + arrows
+- `css/styles.css` — `.product-slider` track, dots, nav
+- `js/main.js` — swipe (touch + mouse), dots, prev/next
+- `assets/products/polo-back.jpg` — back view
+- `README.md` — changelog
+

@@ -301,8 +301,15 @@
           </article>
 
           <article class="product-card" data-id="polo" data-name="Polo Oficial" data-price="12000" data-name-en="Official Polo">
-            <div class="product-image">
-              <img src="assets/products/polo-front.jpg" alt="Polo Oficial Academia Semente" loading="lazy">
+            <div class="product-image product-slider" data-slider>
+              <div class="slider-track">
+                <img src="assets/products/polo-front.jpg" alt="Polo Oficial - frente" loading="lazy" draggable="false">
+                <img src="assets/products/polo-back.jpg" alt="Polo Oficial - costas" loading="lazy" draggable="false">
+              </div>
+              <button type="button" class="slider-dot active" data-slide="0" aria-label="Frente"></button>
+              <button type="button" class="slider-dot" data-slide="1" aria-label="Costas"></button>
+              <button type="button" class="slider-nav slider-prev" aria-label="Anterior">‹</button>
+              <button type="button" class="slider-nav slider-next" aria-label="Seguinte">›</button>
             </div>
             <div class="product-info">
               <h3 data-i18n="prod2Title">Polo Oficial</h3>
