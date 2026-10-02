@@ -1599,6 +1599,22 @@ h1, h2, h3, h4 {
   color: var(--accent);
 }
 
+/* Enrolment page hero — same image, slightly shorter on large screens */
+.hero--enroll {
+  min-height: 85vh;
+}
+
+@media (min-width: 900px) {
+  .hero--enroll {
+    min-height: 78vh;
+  }
+}
+
+.page-enroll .page-inscricao {
+  padding-top: 3rem;
+}
+
+
 .form-group {
   margin-bottom: 1.25rem;
 }
