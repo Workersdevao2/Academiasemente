@@ -217,3 +217,8 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `assets/products/polo-back.jpg` — back view
 - `README.md` — changelog
 
+### 2026-10-02 — Fix polo slider showing both sides
+**Files changed:**
+- `css/styles.css` — `.product-slider` is `display: block` so track fills the card; only one side visible at a time
+- `README.md` — changelog
+
