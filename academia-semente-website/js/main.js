@@ -12,7 +12,8 @@
   const mobileDrawer = document.getElementById('mobileDrawer');
   const drawerOverlay = document.getElementById('drawerOverlay');
   const drawerClose = document.getElementById('drawerClose');
-  const contactForm = document.getElementById('enrollForm') || document.getElementById('contactForm');
+  const enrollForm = document.getElementById('enrollForm');
+  const contactForm = document.getElementById('contactForm');
   const yearEl = document.getElementById('year');
   const cartBtn = document.getElementById('cartBtn');
   const cartDrawer = document.getElementById('cartDrawer');
@@ -32,18 +33,22 @@
   let ticking = false;
 
   function updateHeader() {
+    if (!siteHeader) { ticking = false; return; }
     const scrollY = window.scrollY;
-    if (scrollY > 40) {
+    var isEnrollPage = document.body.classList.contains('page-enroll');
+    if (isEnrollPage || scrollY > 40) {
       siteHeader.classList.add('scrolled');
     } else {
       siteHeader.classList.remove('scrolled');
     }
-    if (scrollY > 80 && scrollY > lastScroll) {
-      announceBar.classList.add('hidden');
-      siteHeader.style.top = '0';
-    } else if (scrollY < 40) {
-      announceBar.classList.remove('hidden');
-      siteHeader.style.top = '';
+    if (announceBar) {
+      if (scrollY > 80 && scrollY > lastScroll) {
+        announceBar.classList.add('hidden');
+        siteHeader.style.top = '0';
+      } else if (scrollY < 40) {
+        announceBar.classList.remove('hidden');
+        siteHeader.style.top = '';
+      }
     }
     lastScroll = scrollY;
     ticking = false;
@@ -95,37 +100,74 @@
     }
   });
 
-  // ---------- Enroll → contact form ----------
-  document.querySelectorAll('.enroll-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const course = btn.getAttribute('data-course');
-      const select = document.getElementById('interest');
-      if (select && course) select.value = course;
-    });
-  });
+  // ---------- Open WhatsApp helper ----------
+  function openWhatsApp(message) {
+    var url = 'https://wa.me/244945574700?text=' + encodeURIComponent(message);
+    var a = document.createElement('a');
+    a.href = url;
+    a.target = '_blank';
+    a.rel = 'noopener';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
 
-  // ---------- Enrollment form → WhatsApp ----------
+  // ---------- Pre-select course from ?course= ----------
+  (function preselectCourse() {
+    var select = document.getElementById('interest');
+    if (!select) return;
+    var params = new URLSearchParams(window.location.search);
+    var course = params.get('course');
+    if (course) select.value = course;
+  })();
+
+  // ---------- Contact form → WhatsApp ----------
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      const name = document.getElementById('name').value.trim();
-      const phone = document.getElementById('phone').value.trim();
-      const interest = document.getElementById('interest').value;
-      const message = document.getElementById('message').value.trim();
-      let text = 'Olá! Gostaria de *inscrever-me* na Academia Semente.\n\n';
+      var nameEl = document.getElementById('c-name');
+      var phoneEl = document.getElementById('c-phone');
+      var interestEl = document.getElementById('c-interest');
+      var messageEl = document.getElementById('c-message');
+      var name = nameEl ? nameEl.value.trim() : '';
+      var phone = phoneEl ? phoneEl.value.trim() : '';
+      var interest = interestEl ? interestEl.value : '';
+      var message = messageEl ? messageEl.value.trim() : '';
+      var text = 'Olá! Sou *' + name + '*.\n';
+      text += 'Telefone: ' + phone + '\n';
+      text += 'Assunto: ' + interest + '\n';
+      if (message) text += '\nMensagem: ' + message;
+      openWhatsApp(text);
+    });
+  }
+
+  // ---------- Enrollment form → WhatsApp ----------
+  if (enrollForm) {
+    enrollForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('name').value.trim();
+      var phone = document.getElementById('phone').value.trim();
+      var addressEl = document.getElementById('address');
+      var provinceEl = document.getElementById('province');
+      var municipalityEl = document.getElementById('municipality');
+      var scheduleEl = document.getElementById('schedule');
+      var messageEl = document.getElementById('message');
+      var address = addressEl ? addressEl.value.trim() : '';
+      var province = provinceEl ? provinceEl.value : '';
+      var municipality = municipalityEl ? municipalityEl.value.trim() : '';
+      var interest = document.getElementById('interest').value;
+      var schedule = scheduleEl ? scheduleEl.value : '';
+      var message = messageEl ? messageEl.value.trim() : '';
+      var text = 'Olá! Gostaria de *inscrever-me* na Academia Semente.\n\n';
       text += 'Nome: *' + name + '*\n';
       text += 'Telefone: ' + phone + '\n';
+      text += 'Morada: ' + address + '\n';
+      text += 'Província: ' + province + '\n';
+      text += 'Município: ' + municipality + '\n';
       text += 'Curso pretendido: *' + interest + '*\n';
+      text += 'Horário: *' + schedule + '*\n';
       if (message) text += '\nNotas: ' + message;
-      // Mobile-friendly open
-      var url = 'https://wa.me/244945574700?text=' + encodeURIComponent(text);
-      var a = document.createElement('a');
-      a.href = url;
-      a.target = '_blank';
-      a.rel = 'noopener';
-      document.body.appendChild(a);
-      a.click();
-      document.body.removeChild(a);
+      openWhatsApp(text);
     });
   }
 
@@ -456,6 +498,7 @@
       navAbout: 'Sobre',
       navCourses: 'Cursos',
       navProducts: 'Produtos',
+      navContact: 'Contacto',
       navEnroll: 'Inscrição',
       heroEyebrow: 'Formação em Inglês · Angola',
       heroTitle: 'Aprenda inglês<br>para a vida real',
@@ -531,7 +574,10 @@
       diff4Text: 'Sala onde errar é normal. Quebramos o medo de falar.',
       enrollEyebrow: 'Inscrição',
       enrollTitle: 'Inscreva-se agora',
-      enrollDesc: 'Preencha o formulário e envie a sua inscrição directamente no WhatsApp. Respondemos rapidamente para confirmar a vaga e o teste de nível gratuito.',
+      enrollDesc: 'Preencha o formulário completo e envie a sua inscrição directamente no WhatsApp. Confirmamos a vaga e o teste de nível gratuito.',
+      contactEyebrow: 'Contacto',
+      contactTitle: 'Fale connosco',
+      contactDesc: 'Envie-nos uma mensagem. Respondemos rapidamente via WhatsApp. Para se inscrever num curso, use a página de inscrição.',
       locationLabel: 'Localização',
       phoneLabel: 'WhatsApp',
       emailLabel: 'Email',
@@ -540,15 +586,35 @@
       formNamePh: 'O seu nome',
       formPhone: 'Telefone / WhatsApp',
       formPhonePh: '+244 ...',
+      formInterest: 'Assunto',
+      formMessage: 'Mensagem',
+      formMessagePh: 'Como podemos ajudar?',
+      formSubmit: 'Enviar via WhatsApp',
       formCourse: 'Curso pretendido',
+      formAddress: 'Morada',
+      formAddressPh: 'Rua, bairro, número',
+      formProvince: 'Província',
+      formProvincePh: 'Seleccione a província',
+      formMunicipality: 'Município',
+      formMunicipalityPh: 'Ex.: Belas, Viana, Cacuaco',
+      formSchedule: 'Horários disponíveis',
+      formSchedulePh: 'Seleccione o horário',
       formNotes: 'Notas (opcional)',
-      formNotesPh: 'Horário preferido, dúvidas ou informações adicionais',
+      formNotesPh: 'Dúvidas ou informações adicionais',
       formEnrollSubmit: 'Inscrever-me via WhatsApp',
       formHint: 'Ao enviar, abre o WhatsApp com a sua inscrição pré-preenchida.',
       optOnline: 'Curso Online',
       optPresencial: 'Curso Presencial',
       optDomiciliar: 'Curso Domiciliar',
       optLevelTest: 'Teste de nível gratuito',
+      optMorning: '08h - 10h · Manhã',
+      optAfternoon: '14h - 16h · Tarde',
+      optFlexible: 'Flexível / a combinar',
+      optGeneral: 'Informações gerais',
+      optCourses: 'Cursos',
+      optProducts: 'Produtos / Materiais',
+      optPartner: 'Parcerias',
+      optOther: 'Outro',
       footerTag: 'Cultivando conhecimento, formando futuros.',
       rights: 'Todos os direitos reservados.',
       cartTitle: 'Carrinho',
@@ -565,6 +631,7 @@
       navAbout: 'About',
       navCourses: 'Courses',
       navProducts: 'Products',
+      navContact: 'Contact',
       navEnroll: 'Enrol',
       heroEyebrow: 'English Training · Angola',
       heroTitle: 'Learn English<br>for real life',
@@ -640,7 +707,10 @@
       diff4Text: 'A room where mistakes are normal. We break the fear of speaking.',
       enrollEyebrow: 'Enrolment',
       enrollTitle: 'Enrol now',
-      enrollDesc: 'Fill in the form and send your enrolment directly on WhatsApp. We reply quickly to confirm your place and the free level test.',
+      enrollDesc: 'Fill in the full form and send your enrolment directly on WhatsApp. We confirm your place and the free level test.',
+      contactEyebrow: 'Contact',
+      contactTitle: 'Get in touch',
+      contactDesc: 'Send us a message. We reply quickly via WhatsApp. To enrol in a course, use the enrolment page.',
       locationLabel: 'Location',
       phoneLabel: 'WhatsApp',
       emailLabel: 'Email',
@@ -649,15 +719,35 @@
       formNamePh: 'Your name',
       formPhone: 'Phone / WhatsApp',
       formPhonePh: '+244 ...',
+      formInterest: 'Subject',
+      formMessage: 'Message',
+      formMessagePh: 'How can we help?',
+      formSubmit: 'Send via WhatsApp',
       formCourse: 'Preferred course',
+      formAddress: 'Address',
+      formAddressPh: 'Street, neighbourhood, number',
+      formProvince: 'Province',
+      formProvincePh: 'Select province',
+      formMunicipality: 'Municipality',
+      formMunicipalityPh: 'e.g. Belas, Viana, Cacuaco',
+      formSchedule: 'Available schedules',
+      formSchedulePh: 'Select schedule',
       formNotes: 'Notes (optional)',
-      formNotesPh: 'Preferred schedule, questions or extra details',
+      formNotesPh: 'Questions or extra details',
       formEnrollSubmit: 'Enrol via WhatsApp',
       formHint: 'Submitting opens WhatsApp with your enrolment pre-filled.',
       optOnline: 'Online Course',
       optPresencial: 'In-person Course',
       optDomiciliar: 'Home Course',
       optLevelTest: 'Free level test',
+      optMorning: '08h - 10h · Morning',
+      optAfternoon: '14h - 16h · Afternoon',
+      optFlexible: 'Flexible / to arrange',
+      optGeneral: 'General information',
+      optCourses: 'Courses',
+      optProducts: 'Products / Materials',
+      optPartner: 'Partnerships',
+      optOther: 'Other',
       footerTag: 'Cultivating knowledge, forming futures.',
       rights: 'All rights reserved.',
       cartTitle: 'Cart',
