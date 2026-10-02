@@ -197,3 +197,9 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `css/styles.css` — larger touch targets; SVG pointer-events none; footer buttons touch-action
 - `README.md` — changelog
 
+### 2026-10-02 — Remove em dashes from copy
+**Files changed:**
+- `index.html` — em dashes replaced with commas / simple hyphens in visible text
+- `js/main.js` — PT and EN translations cleaned; WhatsApp line uses hyphen
+- `README.md` — changelog
+
