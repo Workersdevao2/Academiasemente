@@ -64,7 +64,7 @@
       <a href="#sobre" data-i18n="navAbout">Sobre</a>
       <a href="#cursos" data-i18n="navCourses">Cursos</a>
       <a href="#produtos" data-i18n="navProducts">Produtos</a>
-      <a href="#contacto" data-i18n="navContact">Contacto</a>
+      <a href="#inscricao" data-i18n="navEnroll">Inscrição</a>
     </nav>
   </header>
 
@@ -84,7 +84,7 @@
       <a href="#sobre" data-i18n="navAbout">Sobre</a>
       <a href="#cursos" data-i18n="navCourses">Cursos</a>
       <a href="#produtos" data-i18n="navProducts">Produtos</a>
-      <a href="#contacto" data-i18n="navContact">Contacto</a>
+      <a href="#inscricao" data-i18n="navEnroll">Inscrição</a>
     </nav>
     <div class="drawer-footer">
       <a href="https://wa.me/244945574700" target="_blank" rel="noopener" class="drawer-whatsapp">
@@ -201,7 +201,7 @@
               <li data-i18n="onlineF4">IA de apoio 24 horas</li>
               <li data-i18n="onlineF5">Feedback mensal em vídeo</li>
             </ul>
-            <a href="#contacto" class="btn btn-outline enroll-btn" data-course="Online" data-i18n="enrollBtn">Inscrever-me</a>
+            <a href="#inscricao" class="btn btn-outline enroll-btn" data-course="Online" data-i18n="enrollBtn">Inscrever-me</a>
           </article>
 
           <!-- Presencial (featured) -->
@@ -226,7 +226,7 @@
               <li data-i18n="presencialF4">Eventos reais (English Day, debates)</li>
               <li data-i18n="presencialF5">Comunidade WhatsApp só em inglês</li>
             </ul>
-            <a href="#contacto" class="btn btn-primary enroll-btn" data-course="Presencial" data-i18n="enrollBtn">Inscrever-me</a>
+            <a href="#inscricao" class="btn btn-primary enroll-btn" data-course="Presencial" data-i18n="enrollBtn">Inscrever-me</a>
           </article>
 
           <!-- Domiciliar -->
@@ -250,7 +250,7 @@
               <li data-i18n="domiciliarF4">Plano de estudos personalizado</li>
               <li data-i18n="domiciliarF5">Acompanhamento intensivo</li>
             </ul>
-            <a href="#contacto" class="btn btn-outline enroll-btn" data-course="Domiciliar" data-i18n="enrollBtn">Inscrever-me</a>
+            <a href="#inscricao" class="btn btn-outline enroll-btn" data-course="Domiciliar" data-i18n="enrollBtn">Inscrever-me</a>
           </article>
         </div>
 
@@ -394,67 +394,41 @@
       </div>
     </section>
 
-    <!-- ========== CONTACTO ========== -->
-    <section class="section contacto" id="contacto">
-      <div class="contacto-bg" aria-hidden="true"></div>
+    <!-- ========== INSCRIÇÃO ========== -->
+    <section class="section inscricao" id="inscricao">
+      <div class="inscricao-bg" aria-hidden="true"></div>
       <div class="container">
         <div class="section-header">
-          <p class="section-eyebrow" data-i18n="contactEyebrow">Contacto</p>
-          <h2 class="section-title" data-i18n="contactTitle">Comece a sua jornada</h2>
-          <p class="section-desc" data-i18n="contactDesc">Envie-nos uma mensagem. Respondemos rapidamente via WhatsApp.</p>
+          <p class="section-eyebrow" data-i18n="enrollEyebrow">Inscrição</p>
+          <h2 class="section-title" data-i18n="enrollTitle">Inscreva-se agora</h2>
+          <p class="section-desc" data-i18n="enrollDesc">Preencha o formulário e envie a sua inscrição directamente no WhatsApp. Respondemos rapidamente para confirmar a vaga e o teste de nível gratuito.</p>
         </div>
 
-        <div class="contact-grid">
-          <div class="contact-info">
-            <div class="info-item">
-              <span class="info-label" data-i18n="locationLabel">Localização</span>
-              <p>Kilamba, Ed R29, Andar 6, Ap 63<br>Luanda, Angola</p>
-            </div>
-            <div class="info-item">
-              <span class="info-label" data-i18n="phoneLabel">WhatsApp</span>
-              <p><a href="https://wa.me/244945574700">+244 945 574 700</a></p>
-            </div>
-            <div class="info-item">
-              <span class="info-label" data-i18n="emailLabel">Email</span>
-              <p><a href="mailto:academiasemente@gmail.com">academiasemente@gmail.com</a></p>
-            </div>
-            <div class="info-item">
-              <span class="info-label" data-i18n="socialLabel">Redes sociais</span>
-              <div class="social-links">
-                <a href="https://www.instagram.com/academiasemente" target="_blank" rel="noopener" aria-label="Instagram">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
-                </a>
-                <a href="https://www.facebook.com/profile.php?id=61584786747541" target="_blank" rel="noopener" aria-label="Facebook">
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
-                </a>
-              </div>
-            </div>
-          </div>
-
-          <form class="contact-form" id="contactForm">
+        <div class="enroll-grid">
+          <form class="enroll-form" id="enrollForm">
             <div class="form-group">
               <label for="name" data-i18n="formName">Nome completo</label>
-              <input type="text" id="name" name="name" required placeholder="O seu nome" data-i18n-placeholder="formNamePh">
+              <input type="text" id="name" name="name" required placeholder="O seu nome" data-i18n-placeholder="formNamePh" autocomplete="name">
             </div>
             <div class="form-group">
               <label for="phone" data-i18n="formPhone">Telefone / WhatsApp</label>
-              <input type="tel" id="phone" name="phone" required placeholder="+244 ..." data-i18n-placeholder="formPhonePh">
+              <input type="tel" id="phone" name="phone" required placeholder="+244 ..." data-i18n-placeholder="formPhonePh" autocomplete="tel">
             </div>
             <div class="form-group">
-              <label for="interest" data-i18n="formInterest">Interesse</label>
-              <select id="interest" name="interest">
+              <label for="interest" data-i18n="formCourse">Curso pretendido</label>
+              <select id="interest" name="interest" required>
                 <option value="Online" data-i18n="optOnline">Curso Online</option>
                 <option value="Presencial" data-i18n="optPresencial">Curso Presencial</option>
                 <option value="Domiciliar" data-i18n="optDomiciliar">Curso Domiciliar</option>
-                <option value="Produtos" data-i18n="optProducts">Produtos / Materiais</option>
-                <option value="Outro" data-i18n="optOther">Outro</option>
+                <option value="Teste de nível" data-i18n="optLevelTest">Teste de nível gratuito</option>
               </select>
             </div>
             <div class="form-group">
-              <label for="message" data-i18n="formMessage">Mensagem</label>
-              <textarea id="message" name="message" rows="4" placeholder="Como podemos ajudar?" data-i18n-placeholder="formMessagePh"></textarea>
+              <label for="message" data-i18n="formNotes">Notas (opcional)</label>
+              <textarea id="message" name="message" rows="3" placeholder="Horário preferido, dúvidas ou informações adicionais" data-i18n-placeholder="formNotesPh"></textarea>
             </div>
-            <button type="submit" class="btn btn-primary btn-full" data-i18n="formSubmit">Enviar via WhatsApp</button>
+            <button type="submit" class="btn btn-primary btn-full" data-i18n="formEnrollSubmit">Inscrever-me via WhatsApp</button>
+            <p class="form-hint" data-i18n="formHint">Ao enviar, abre o WhatsApp com a sua inscrição pré-preenchida.</p>
           </form>
         </div>
       </div>
@@ -474,7 +448,32 @@
           <a href="#sobre" data-i18n="navAbout">Sobre</a>
           <a href="#cursos" data-i18n="navCourses">Cursos</a>
           <a href="#produtos" data-i18n="navProducts">Produtos</a>
-          <a href="#contacto" data-i18n="navContact">Contacto</a>
+          <a href="#inscricao" data-i18n="navEnroll">Inscrição</a>
+        </div>
+        <div class="footer-contact">
+          <div class="footer-contact-item">
+            <span class="footer-contact-label" data-i18n="locationLabel">Localização</span>
+            <p>Kilamba, Ed R29, Andar 6, Ap 63<br>Luanda, Angola</p>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-label" data-i18n="phoneLabel">WhatsApp</span>
+            <p><a href="https://wa.me/244945574700">+244 945 574 700</a></p>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-label" data-i18n="emailLabel">Email</span>
+            <p><a href="mailto:academiasemente@gmail.com">academiasemente@gmail.com</a></p>
+          </div>
+          <div class="footer-contact-item">
+            <span class="footer-contact-label" data-i18n="socialLabel">Redes sociais</span>
+            <div class="footer-social">
+              <a href="https://www.instagram.com/academiasemente" target="_blank" rel="noopener" aria-label="Instagram">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1.5" fill="currentColor" stroke="none"/></svg>
+              </a>
+              <a href="https://www.facebook.com/profile.php?id=61584786747541" target="_blank" rel="noopener" aria-label="Facebook">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
       <div class="footer-bottom">
