@@ -173,3 +173,12 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `css/styles.css` — horarios card uses photo bg with soft overlay; time slots as glass chips
 - `README.md` — changelog
 
+### 2026-10-02 — Modality card icons
+**Files changed:**
+- `assets/icons/online.jpg` — laptop + wifi + leaf
+- `assets/icons/presencial.jpg` — open book + classroom
+- `assets/icons/domiciliar.jpg` — house + leaf
+- `index.html` — icons on Online, Presencial, Domiciliar price cards
+- `css/styles.css` — `.price-icon` (72×72, matches Porquê nós)
+- `README.md` — changelog
+
