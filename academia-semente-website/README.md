@@ -182,3 +182,12 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `css/styles.css` — `.price-icon` (72×72, matches Porquê nós)
 - `README.md` — changelog
 
+### 2026-10-02 — A Academia section visuals
+**Files changed:**
+- `assets/sobre-bg.jpg` — soft leaf + circuit abstract background
+- `assets/icons/missao.jpg` — seed/sprout icon
+- `assets/icons/visao.jpg` — globe + path icon
+- `index.html` — sobre bg layer; Missão/Visão icons
+- `css/styles.css` — `.sobre-bg`, `.mv-icon`; mv-cards glass style
+- `README.md` — changelog
+
