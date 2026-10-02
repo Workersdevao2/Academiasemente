@@ -1,5 +1,5 @@
 /* ============================================
-   ACADEMIA SEMENTE — Main Script
+   ACADEMIA SEMENTE - Main Script
    ============================================ */
 
 (function () {
@@ -233,7 +233,7 @@
     var msg = 'Olá! Gostaria de encomendar os seguintes produtos:\n\n';
     cart.forEach(function (item) {
       var label = (currentLang === 'en' && item.nameEn) ? item.nameEn : item.name;
-      msg += '• ' + label + ' × ' + item.qty + ' — ' + formatPrice(item.price * item.qty) + '\n';
+      msg += '• ' + label + ' × ' + item.qty + ' - ' + formatPrice(item.price * item.qty) + '\n';
     });
     msg += '\n*Total: ' + formatPrice(getCartTotal()) + '*';
     var url = 'https://wa.me/244945574700?text=' + encodeURIComponent(msg);
@@ -292,7 +292,7 @@
     });
   });
 
-  // Swipe right to close cart — ignore when starting on a button/link
+  // Swipe right to close cart - ignore when starting on a button/link
   var touchStartX = 0;
   var touchCurrentX = 0;
   var isSwiping = false;
@@ -350,14 +350,14 @@
       navContact: 'Contacto',
       heroEyebrow: 'Formação em Inglês · Angola',
       heroTitle: 'Aprenda inglês<br>para a vida real',
-      heroSubtitle: 'Metodologia exclusiva que transforma o português que você já fala em inglês fluente — em até 12 meses.',
+      heroSubtitle: 'Metodologia exclusiva que transforma o português que você já fala em inglês fluente, em até 12 meses.',
       heroCta: 'Ver cursos',
       heroCta2: 'Falar no WhatsApp',
       scroll: 'Scroll',
       aboutEyebrow: 'A Academia',
       aboutTitle: 'Toda grande conquista<br>começa por uma semente',
       aboutP1: 'A Academia Semente nasceu da necessidade de preencher as lacunas no ensino de inglês em Angola e das dificuldades que falantes de português enfrentam ao aprender esta língua.',
-      aboutP2: 'Utilizamos uma metodologia exclusiva — uma reformulação ideológica que funciona como ponte mental — para que o aluno consiga reproduzir tudo o que fala em português para inglês por meio de padrões e passe a pensar apenas em inglês.',
+      aboutP2: 'Utilizamos uma metodologia exclusiva, uma reformulação ideológica que funciona como ponte mental, para que o aluno consiga reproduzir tudo o que fala em português para inglês por meio de padrões e passe a pensar apenas em inglês.',
       aboutP3: 'Foco em empregabilidade e vida real: o mercado não quer aluno que tira 20 na prova e trava na entrevista.',
       statStudents: 'Alunos formados',
       statCenters: 'Centros em Angola',
@@ -415,7 +415,7 @@
       diff1Title: 'Metodologia exclusiva',
       diff1Text: 'Ponte mental que permite pensar directamente em inglês a partir do português.',
       diff2Title: 'Foco em empregabilidade',
-      diff2Text: 'Entrevistas, e-mails corporativos e atendimento ao cliente — inglês para o mercado.',
+      diff2Text: 'Entrevistas, e-mails corporativos e atendimento ao cliente, inglês para o mercado.',
       diff3Title: 'Tecnologia + humano',
       diff3Text: 'IA 24h para prática + professor como coach de comunicação.',
       diff4Title: 'Ambiente sem julgamento',
@@ -459,14 +459,14 @@
       navContact: 'Contact',
       heroEyebrow: 'English Training · Angola',
       heroTitle: 'Learn English<br>for real life',
-      heroSubtitle: 'Exclusive methodology that turns the Portuguese you already speak into fluent English — in up to 12 months.',
+      heroSubtitle: 'Exclusive methodology that turns the Portuguese you already speak into fluent English, in up to 12 months.',
       heroCta: 'View courses',
       heroCta2: 'Chat on WhatsApp',
       scroll: 'Scroll',
       aboutEyebrow: 'The Academy',
       aboutTitle: 'Every great achievement<br>begins with a seed',
       aboutP1: 'Academia Semente was born to fill the gaps in English teaching in Angola and the difficulties Portuguese speakers face when learning this language.',
-      aboutP2: 'We use an exclusive methodology — an ideological reformulation that works as a mental bridge — so students can transfer everything they say in Portuguese into English through patterns and start thinking only in English.',
+      aboutP2: 'We use an exclusive methodology, an ideological reformulation that works as a mental bridge, so students can transfer everything they say in Portuguese into English through patterns and start thinking only in English.',
       aboutP3: 'Focus on employability and real life: the market does not want students who score 20 on tests but freeze in interviews.',
       statStudents: 'Students trained',
       statCenters: 'Centres in Angola',
@@ -524,7 +524,7 @@
       diff1Title: 'Exclusive methodology',
       diff1Text: 'Mental bridge that allows thinking directly in English from Portuguese.',
       diff2Title: 'Employability focus',
-      diff2Text: 'Interviews, corporate emails and customer service — English for the market.',
+      diff2Text: 'Interviews, corporate emails and customer service, English for the market.',
       diff3Title: 'Technology + human',
       diff3Text: '24h AI for practice + teacher as communication coach.',
       diff4Title: 'Judgement-free space',
