@@ -1175,6 +1175,100 @@ h1, h2, h3, h4 {
   transform: scale(1.04);
 }
 
+/* Product image slider (polo front/back) */
+.product-slider {
+  position: relative;
+  overflow: hidden;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+.product-slider .slider-track {
+  display: flex;
+  width: 200%;
+  height: 100%;
+  transition: transform 0.35s var(--ease);
+  will-change: transform;
+}
+
+.product-slider .slider-track img {
+  width: 50%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  flex-shrink: 0;
+  pointer-events: none;
+  transform: none !important;
+}
+
+.product-card:hover .product-slider .slider-track img {
+  transform: none !important;
+}
+
+.slider-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: rgba(255,255,255,0.9);
+  color: var(--text);
+  font-size: 1.1rem;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s var(--ease), background 0.2s;
+  z-index: 2;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.product-slider:hover .slider-nav,
+.product-slider:focus-within .slider-nav {
+  opacity: 1;
+}
+
+@media (hover: none) {
+  .slider-nav { opacity: 0.85; }
+}
+
+.slider-prev { left: 0.5rem; }
+.slider-next { right: 0.5rem; }
+
+.slider-nav:hover {
+  background: var(--white);
+  border-color: var(--green-primary);
+  color: var(--green-primary);
+}
+
+.slider-dot {
+  position: absolute;
+  bottom: 0.65rem;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0,0,0,0.2);
+  cursor: pointer;
+  z-index: 2;
+  padding: 0;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.slider-dot:nth-of-type(1) { left: calc(50% - 12px); }
+.slider-dot:nth-of-type(2) { left: calc(50% + 5px); }
+
+.slider-dot.active {
+  background: var(--green-primary);
+  transform: scale(1.15);
+}
+
+
 .product-info {
   padding: 1.35rem;
 }
@@ -1724,6 +1818,10 @@ textarea:focus-visible {
   gap: 0.75rem;
   position: relative;
   z-index: 2;
+}
+
+.cart-footer[hidden] {
+  display: none !important;
 }
 
 .cart-footer .btn {
