@@ -167,3 +167,9 @@ The site hero keeps the original solid brand green; only the man is overlaid.
 - `css/styles.css` — `.horarios-header` / `.horarios-icon` styles
 - `README.md` — changelog
 
+### 2026-10-02 — Horários card photo background
+**Files changed:**
+- `assets/horarios-bg.jpg` — blurred planner desk photo
+- `css/styles.css` — horarios card uses photo bg with soft overlay; time slots as glass chips
+- `README.md` — changelog
+
