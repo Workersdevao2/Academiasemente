@@ -1399,11 +1399,132 @@ h1, h2, h3, h4 {
   line-height: 1.6;
 }
 
-/* ========== INSCRIÇÃO ========== */
+/* ========== CONTACTO ========== */
+.contacto {
+  position: relative;
+  background: var(--white);
+  overflow: hidden;
+}
+
+.contacto-bg {
+  position: absolute;
+  inset: 0;
+  background-image: url('../assets/contact-bg.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+.contacto-bg::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    160deg,
+    rgba(255, 255, 255, 0.88) 0%,
+    rgba(250, 251, 250, 0.82) 50%,
+    rgba(232, 245, 236, 0.85) 100%
+  );
+}
+
+.contacto > .container {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-grid {
+  display: grid;
+  gap: 3rem;
+}
+
+@media (min-width: 768px) {
+  .contact-grid {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 4rem;
+    align-items: start;
+  }
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.info-item .info-label {
+  display: block;
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.4rem;
+}
+
+.info-item p {
+  font-size: 0.95rem;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.info-item a {
+  color: var(--accent);
+  transition: color var(--trans);
+}
+
+.info-item a:hover {
+  color: var(--green-dark);
+}
+
+.social-links {
+  display: flex;
+  gap: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.social-links a {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--gray-200);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-soft);
+  transition: all var(--trans);
+}
+
+.social-links a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.contact-form {
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius);
+  padding: 2rem;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
+}
+
+/* ========== INSCRIÇÃO (dedicated page) ========== */
 .inscricao {
   position: relative;
   background: var(--white);
   overflow: hidden;
+}
+
+.page-enroll .site-header.scrolled {
+  /* already solid on enroll page */
+}
+
+.page-inscricao {
+  padding-top: 1.5rem;
+  min-height: 70vh;
 }
 
 .inscricao-bg {
@@ -1438,7 +1559,6 @@ h1, h2, h3, h4 {
   justify-content: center;
 }
 
-/* Form */
 .enroll-form {
   width: 100%;
   max-width: 480px;
@@ -1451,6 +1571,21 @@ h1, h2, h3, h4 {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
 }
 
+.enroll-form--wide {
+  max-width: 640px;
+}
+
+.form-row {
+  display: grid;
+  gap: 1rem;
+}
+
+@media (min-width: 560px) {
+  .form-row {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
 .form-hint {
   margin-top: 0.85rem;
   font-size: 0.75rem;
@@ -1458,6 +1593,10 @@ h1, h2, h3, h4 {
   color: var(--text-muted);
   text-align: center;
   letter-spacing: 0.02em;
+}
+
+.desktop-nav a.nav-active {
+  color: var(--accent);
 }
 
 .form-group {
