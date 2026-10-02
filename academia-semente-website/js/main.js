@@ -149,11 +149,15 @@
 
     if (cart.length === 0) {
       cartBody.innerHTML = '<p class="cart-empty">' + (translations[currentLang] ? translations[currentLang].cartEmpty : 'O seu carrinho está vazio.') + '</p>';
-      if (cartFooter) cartFooter.hidden = true;
+      if (cartFooter) {
+        cartFooter.hidden = true;
+        cartFooter.setAttribute('hidden', '');
+      }
+      if (cartTotal) cartTotal.textContent = formatPrice(0);
       return;
     }
 
-    if (cartFooter) cartFooter.hidden = false;
+    if (cartFooter) { cartFooter.hidden = false; cartFooter.removeAttribute('hidden'); }
     if (cartTotal) cartTotal.textContent = formatPrice(getCartTotal());
 
     cartBody.innerHTML = cart.map(function (item) {
@@ -336,6 +340,91 @@
   }
 
   updateCartUI();
+
+
+  // ---------- Product image slider (polo) ----------
+  function initProductSliders() {
+    document.querySelectorAll('[data-slider]').forEach(function (slider) {
+      var track = slider.querySelector('.slider-track');
+      var dots = slider.querySelectorAll('.slider-dot');
+      var prev = slider.querySelector('.slider-prev');
+      var next = slider.querySelector('.slider-next');
+      var index = 0;
+      var count = track ? track.querySelectorAll('img').length : 0;
+      if (!track || count < 2) return;
+
+      function goTo(i) {
+        index = (i + count) % count;
+        track.style.transform = 'translateX(' + (-index * 50) + '%)';
+        dots.forEach(function (d, di) {
+          d.classList.toggle('active', di === index);
+        });
+      }
+
+      if (prev) prev.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(index - 1);
+      });
+      if (next) next.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        goTo(index + 1);
+      });
+      dots.forEach(function (dot) {
+        dot.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          goTo(Number(dot.getAttribute('data-slide')) || 0);
+        });
+      });
+
+      // Touch swipe
+      var startX = 0;
+      var currentX = 0;
+      var dragging = false;
+
+      slider.addEventListener('touchstart', function (e) {
+        startX = e.touches[0].clientX;
+        currentX = startX;
+        dragging = true;
+      }, { passive: true });
+
+      slider.addEventListener('touchmove', function (e) {
+        if (!dragging) return;
+        currentX = e.touches[0].clientX;
+      }, { passive: true });
+
+      slider.addEventListener('touchend', function () {
+        if (!dragging) return;
+        dragging = false;
+        var diff = currentX - startX;
+        if (diff < -40) goTo(index + 1);
+        else if (diff > 40) goTo(index - 1);
+      });
+
+      // Mouse drag (desktop)
+      var mouseDown = false;
+      slider.addEventListener('mousedown', function (e) {
+        if (e.target.closest('button')) return;
+        mouseDown = true;
+        startX = e.clientX;
+        currentX = startX;
+      });
+      window.addEventListener('mousemove', function (e) {
+        if (!mouseDown) return;
+        currentX = e.clientX;
+      });
+      window.addEventListener('mouseup', function () {
+        if (!mouseDown) return;
+        mouseDown = false;
+        var diff = currentX - startX;
+        if (diff < -40) goTo(index + 1);
+        else if (diff > 40) goTo(index - 1);
+      });
+    });
+  }
+  initProductSliders();
 
   // ---------- Language ----------
   var translations = {
