@@ -79,6 +79,17 @@ python3 -m http.server 8080
 
 ## Changelog
 
+### 2026-10-02 — Enrol page header fix
+**What changed**
+- Header on `inscricao.html` was forced into solid white state even at the top of the hero
+- Now matches homepage: transparent over hero, solid white after scroll (mobile + desktop)
+- Active nav link readable on transparent and scrolled states
+
+**Files changed (download these for GitHub):**
+- `js/main.js`
+- `css/styles.css`
+- `README.md`
+
 ### 2026-10-02 — Enrolment page hero
 **What changed**
 - Hero section on `inscricao.html` using the same `assets/hero.jpg` as the homepage
