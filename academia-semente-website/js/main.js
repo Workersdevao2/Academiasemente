@@ -12,7 +12,7 @@
   const mobileDrawer = document.getElementById('mobileDrawer');
   const drawerOverlay = document.getElementById('drawerOverlay');
   const drawerClose = document.getElementById('drawerClose');
-  const contactForm = document.getElementById('contactForm');
+  const contactForm = document.getElementById('enrollForm') || document.getElementById('contactForm');
   const yearEl = document.getElementById('year');
   const cartBtn = document.getElementById('cartBtn');
   const cartDrawer = document.getElementById('cartDrawer');
@@ -104,7 +104,7 @@
     });
   });
 
-  // ---------- Contact form → WhatsApp ----------
+  // ---------- Enrollment form → WhatsApp ----------
   if (contactForm) {
     contactForm.addEventListener('submit', function (e) {
       e.preventDefault();
@@ -112,11 +112,20 @@
       const phone = document.getElementById('phone').value.trim();
       const interest = document.getElementById('interest').value;
       const message = document.getElementById('message').value.trim();
-      let text = 'Olá! Sou *' + name + '*.\n';
+      let text = 'Olá! Gostaria de *inscrever-me* na Academia Semente.\n\n';
+      text += 'Nome: *' + name + '*\n';
       text += 'Telefone: ' + phone + '\n';
-      text += 'Interesse: ' + interest + '\n';
-      if (message) text += '\nMensagem: ' + message;
-      window.open('https://wa.me/244945574700?text=' + encodeURIComponent(text), '_blank', 'noopener');
+      text += 'Curso pretendido: *' + interest + '*\n';
+      if (message) text += '\nNotas: ' + message;
+      // Mobile-friendly open
+      var url = 'https://wa.me/244945574700?text=' + encodeURIComponent(text);
+      var a = document.createElement('a');
+      a.href = url;
+      a.target = '_blank';
+      a.rel = 'noopener';
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
     });
   }
 
@@ -447,7 +456,7 @@
       navAbout: 'Sobre',
       navCourses: 'Cursos',
       navProducts: 'Produtos',
-      navContact: 'Contacto',
+      navEnroll: 'Inscrição',
       heroEyebrow: 'Formação em Inglês · Angola',
       heroTitle: 'Aprenda inglês<br>para a vida real',
       heroSubtitle: 'Metodologia exclusiva que transforma o português que você já fala em inglês fluente, em até 12 meses.',
@@ -520,9 +529,9 @@
       diff3Text: 'IA 24h para prática + professor como coach de comunicação.',
       diff4Title: 'Ambiente sem julgamento',
       diff4Text: 'Sala onde errar é normal. Quebramos o medo de falar.',
-      contactEyebrow: 'Contacto',
-      contactTitle: 'Comece a sua jornada',
-      contactDesc: 'Envie-nos uma mensagem. Respondemos rapidamente via WhatsApp.',
+      enrollEyebrow: 'Inscrição',
+      enrollTitle: 'Inscreva-se agora',
+      enrollDesc: 'Preencha o formulário e envie a sua inscrição directamente no WhatsApp. Respondemos rapidamente para confirmar a vaga e o teste de nível gratuito.',
       locationLabel: 'Localização',
       phoneLabel: 'WhatsApp',
       emailLabel: 'Email',
@@ -531,15 +540,15 @@
       formNamePh: 'O seu nome',
       formPhone: 'Telefone / WhatsApp',
       formPhonePh: '+244 ...',
-      formInterest: 'Interesse',
-      formMessage: 'Mensagem',
-      formMessagePh: 'Como podemos ajudar?',
-      formSubmit: 'Enviar via WhatsApp',
+      formCourse: 'Curso pretendido',
+      formNotes: 'Notas (opcional)',
+      formNotesPh: 'Horário preferido, dúvidas ou informações adicionais',
+      formEnrollSubmit: 'Inscrever-me via WhatsApp',
+      formHint: 'Ao enviar, abre o WhatsApp com a sua inscrição pré-preenchida.',
       optOnline: 'Curso Online',
       optPresencial: 'Curso Presencial',
       optDomiciliar: 'Curso Domiciliar',
-      optProducts: 'Produtos / Materiais',
-      optOther: 'Outro',
+      optLevelTest: 'Teste de nível gratuito',
       footerTag: 'Cultivando conhecimento, formando futuros.',
       rights: 'Todos os direitos reservados.',
       cartTitle: 'Carrinho',
@@ -556,7 +565,7 @@
       navAbout: 'About',
       navCourses: 'Courses',
       navProducts: 'Products',
-      navContact: 'Contact',
+      navEnroll: 'Enrol',
       heroEyebrow: 'English Training · Angola',
       heroTitle: 'Learn English<br>for real life',
       heroSubtitle: 'Exclusive methodology that turns the Portuguese you already speak into fluent English, in up to 12 months.',
@@ -629,9 +638,9 @@
       diff3Text: '24h AI for practice + teacher as communication coach.',
       diff4Title: 'Judgement-free space',
       diff4Text: 'A room where mistakes are normal. We break the fear of speaking.',
-      contactEyebrow: 'Contact',
-      contactTitle: 'Start your journey',
-      contactDesc: 'Send us a message. We reply quickly via WhatsApp.',
+      enrollEyebrow: 'Enrolment',
+      enrollTitle: 'Enrol now',
+      enrollDesc: 'Fill in the form and send your enrolment directly on WhatsApp. We reply quickly to confirm your place and the free level test.',
       locationLabel: 'Location',
       phoneLabel: 'WhatsApp',
       emailLabel: 'Email',
@@ -640,15 +649,15 @@
       formNamePh: 'Your name',
       formPhone: 'Phone / WhatsApp',
       formPhonePh: '+244 ...',
-      formInterest: 'Interest',
-      formMessage: 'Message',
-      formMessagePh: 'How can we help?',
-      formSubmit: 'Send via WhatsApp',
+      formCourse: 'Preferred course',
+      formNotes: 'Notes (optional)',
+      formNotesPh: 'Preferred schedule, questions or extra details',
+      formEnrollSubmit: 'Enrol via WhatsApp',
+      formHint: 'Submitting opens WhatsApp with your enrolment pre-filled.',
       optOnline: 'Online Course',
       optPresencial: 'In-person Course',
       optDomiciliar: 'Home Course',
-      optProducts: 'Products / Materials',
-      optOther: 'Other',
+      optLevelTest: 'Free level test',
       footerTag: 'Cultivating knowledge, forming futures.',
       rights: 'All rights reserved.',
       cartTitle: 'Cart',
