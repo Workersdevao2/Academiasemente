@@ -1518,8 +1518,11 @@ h1, h2, h3, h4 {
   overflow: hidden;
 }
 
-.page-enroll .site-header.scrolled {
-  /* already solid on enroll page */
+/* Enrol page: keep header transparent over hero (no forced solid state) */
+.page-enroll .site-header:not(.scrolled) {
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
 }
 
 .page-inscricao {
@@ -1596,6 +1599,11 @@ h1, h2, h3, h4 {
 }
 
 .desktop-nav a.nav-active {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.site-header.scrolled .desktop-nav a.nav-active {
   color: var(--accent);
 }
 
