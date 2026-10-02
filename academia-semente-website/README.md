@@ -15,22 +15,23 @@ Professional luxury website for **Academia Semente**, an English language academ
 - Thin-line hamburger with elegant X animation
 - Left slide-in mobile drawer
 - Announcement bar that hides on scroll
-- Hero with ambassador image (desktop split layout)
+- Hero with reception desk image
 - Services & pricing section (Online / Presencial / Domiciliar)
-- Service cards link to contact form and pre-select the course
+- Service cards link to **enrolment form** and pre-select the course
 - Physical products shop with **shopping cart**
   - Add to cart, quantity +/−, remove item
   - Clear all, total, checkout via WhatsApp
   - Cart drawer slides from the right
   - Swipe right to close on mobile
   - Cart persists in localStorage
-- Contact form that opens WhatsApp with pre-filled message
+- **Enrolment form** (`#inscricao`) that opens WhatsApp with a pre-filled enrolment message
+- Contact details in the **footer** (location, WhatsApp, email, social)
 - Smooth scroll navigation
 
-## Contact data
+## Contact data (shown in footer)
 - WhatsApp: +244 945 574 700
 - Email: academiasemente@gmail.com
-- Location: Kilamba, Ed R29, Andar 6, Ap 63
+- Location: Kilamba, Ed R29, Andar 6, Ap 63, Luanda, Angola
 - Instagram: https://www.instagram.com/academiasemente
 - Facebook: https://www.facebook.com/profile.php?id=61584786747541
 
@@ -72,6 +73,30 @@ python3 -m http.server 8080
 - Hero image → `assets/hero.jpg`
 
 ## Changelog
+
+### 2026-10-02 — Contact → Enrolment + footer contact
+**What changed**
+- Contact section replaced by **Inscrição / Enrolment** (`#inscricao`)
+- Form is enrolment-focused (name, phone, course, optional notes) → WhatsApp
+- All contact details moved into the footer
+- Nav label: Inscrição / Enrol
+
+**Files changed (download these for GitHub):**
+- `index.html`
+- `css/styles.css`
+- `js/main.js`
+- `README.md`
+
+### 2026-10-02 — Cart bug fix (mobile + desktop)
+**What changed**
+- Cart was broken because `updateCartUI()` ran before `translations` / `currentLang` existed → TypeError stopped the script
+- `currentLang` declared early; empty-cart label is defensive
+- Larger touch targets on cart icon and close button
+
+**Files changed (download these for GitHub):**
+- `js/main.js`
+- `css/styles.css`
+- `README.md`
 
 ### 2026-10-01 — Cart, hero image & header fix
 **Files changed:**
