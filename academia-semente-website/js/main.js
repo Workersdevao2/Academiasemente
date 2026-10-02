@@ -121,6 +121,8 @@
   }
 
   // ---------- CART ----------
+  // currentLang must exist before any updateCartUI() call (translations may still be pending)
+  var currentLang = 'pt';
   let cart = JSON.parse(localStorage.getItem('as_cart') || '[]');
 
   function saveCart() {
@@ -139,6 +141,15 @@
     return cart.reduce(function (s, i) { return s + i.price * i.qty; }, 0);
   }
 
+  function getCartEmptyLabel() {
+    try {
+      if (typeof translations !== 'undefined' && translations[currentLang] && translations[currentLang].cartEmpty) {
+        return translations[currentLang].cartEmpty;
+      }
+    } catch (e) { /* ignore */ }
+    return 'O seu carrinho está vazio.';
+  }
+
   function updateCartUI() {
     var qty = getCartQty();
     if (cartCount) {
@@ -148,7 +159,7 @@
     if (!cartBody) return;
 
     if (cart.length === 0) {
-      cartBody.innerHTML = '<p class="cart-empty">' + (translations[currentLang] ? translations[currentLang].cartEmpty : 'O seu carrinho está vazio.') + '</p>';
+      cartBody.innerHTML = '<p class="cart-empty">' + getCartEmptyLabel() + '</p>';
       if (cartFooter) {
         cartFooter.hidden = true;
         cartFooter.setAttribute('hidden', '');
@@ -647,8 +658,6 @@
       cartCheckout: 'Checkout on WhatsApp'
     }
   };
-
-  var currentLang = 'pt';
 
   function setLanguage(lang) {
     currentLang = lang;
