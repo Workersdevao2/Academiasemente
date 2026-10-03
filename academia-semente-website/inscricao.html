@@ -110,7 +110,7 @@
         <div class="section-header">
           <p class="section-eyebrow" data-i18n="enrollEyebrow">Inscrição</p>
           <h2 class="section-title" data-i18n="enrollTitle">Inscreva-se agora</h2>
-          <p class="section-desc" data-i18n="enrollDesc">Preencha o formulário completo e envie a sua inscrição directamente no WhatsApp. Confirmamos a vaga e o teste de nível gratuito.</p>
+          <p class="section-desc" data-i18n="enrollDesc">Preencha o formulário completo. Receberá a confirmação e, em seguida, a referência de pagamento e o acompanhamento da equipa.</p>
         </div>
 
         <div class="enroll-grid">
@@ -251,9 +251,34 @@
               <textarea id="message" name="message" rows="2" placeholder="Outras informações relevantes" data-i18n-placeholder="formNotesPh"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-full" data-i18n="formEnrollSubmit">Inscrever-me via WhatsApp</button>
-            <p class="form-hint" data-i18n="formHint">Ao enviar, abre o WhatsApp com a sua inscrição pré-preenchida.</p>
+            <button type="submit" class="btn btn-primary btn-full" data-i18n="formEnrollSubmit">Enviar inscrição</button>
+            <p class="form-hint" data-i18n="formHint">Após enviar, verá a confirmação e a equipa entrará em contacto com os próximos passos de pagamento.</p>
           </form>
+
+          <!-- Post-enrolment confirmation -->
+          <div class="enroll-success" id="enrollSuccess" hidden>
+            <div class="enroll-success-icon" aria-hidden="true">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/>
+                <path d="M8 12.5l2.5 2.5L16 9"/>
+              </svg>
+            </div>
+            <p class="enroll-success-eyebrow" data-i18n="successEyebrow">Inscrição recebida</p>
+            <h2 class="enroll-success-title"><span data-i18n="successTitle">Obrigado,</span> <span id="successName"></span></h2>
+            <p class="enroll-success-text" data-i18n="successText">A sua inscrição foi registada com sucesso. Em breve enviaremos a <strong>referência de pagamento</strong> e o recibo por WhatsApp ou e-mail.</p>
+
+            <ol class="enroll-success-steps">
+              <li data-i18n="successStep1">Confirmamos os seus dados e a modalidade do curso</li>
+              <li data-i18n="successStep2">Enviamos a referência Multicaixa / instruções de pagamento</li>
+              <li data-i18n="successStep3">Após o pagamento, confirmamos a vaga e o teste de nível</li>
+            </ol>
+
+            <div class="enroll-success-actions">
+              <a href="https://wa.me/244945574700" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="successWhatsApp">Falar no WhatsApp</a>
+              <a href="index.html" class="btn btn-outline" data-i18n="successHome">Voltar ao início</a>
+            </div>
+            <p class="form-hint" data-i18n="successHint">Guarde o seu contacto activo — a equipa Academia Semente responderá em breve.</p>
+          </div>
         </div>
       </div>
     </section>

@@ -194,7 +194,22 @@
       text += 'Temas prioritários: ' + topics + '\n';
       if (message) text += '\nNotas: ' + message;
       openWhatsApp(text);
+      showEnrollSuccess(name);
     });
+  }
+
+  function showEnrollSuccess(name) {
+    var form = document.getElementById('enrollForm');
+    var success = document.getElementById('enrollSuccess');
+    var nameEl = document.getElementById('successName');
+    var header = document.querySelector('#formulario .section-header');
+    if (nameEl) nameEl.textContent = name || '';
+    if (form) form.hidden = true;
+    if (header) header.hidden = true;
+    if (success) {
+      success.hidden = false;
+      success.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   // ---------- CART ----------
@@ -700,7 +715,7 @@
       enrollHeroCta: 'Preencher inscrição',
       enrollEyebrow: 'Inscrição',
       enrollTitle: 'Inscreva-se agora',
-      enrollDesc: 'Preencha o formulário completo e envie a sua inscrição directamente no WhatsApp. Confirmamos a vaga e o teste de nível gratuito.',
+      enrollDesc: 'Preencha o formulário completo. Receberá a confirmação e, em seguida, a referência de pagamento e o acompanhamento da equipa.',
       contactEyebrow: 'Contacto',
       contactTitle: 'Fale connosco',
       contactDesc: 'Envie-nos uma mensagem. Respondemos rapidamente via WhatsApp. Para se inscrever num curso, use a página de inscrição.',
@@ -746,8 +761,17 @@
       formTopicsPh: 'Ex.: apresentações, viagens, trabalho, conversação diária...',
       formNotes: 'Notas (opcional)',
       formNotesPh: 'Outras informações relevantes',
-      formEnrollSubmit: 'Inscrever-me via WhatsApp',
-      formHint: 'Ao enviar, abre o WhatsApp com a sua inscrição pré-preenchida.',
+      formEnrollSubmit: 'Enviar inscrição',
+      formHint: 'Após enviar, verá a confirmação e a equipa entrará em contacto com os próximos passos de pagamento.',
+      successEyebrow: 'Inscrição recebida',
+      successTitle: 'Obrigado,',
+      successText: 'A sua inscrição foi registada com sucesso. Em breve enviaremos a <strong>referência de pagamento</strong> e o recibo por WhatsApp ou e-mail.',
+      successStep1: 'Confirmamos os seus dados e a modalidade do curso',
+      successStep2: 'Enviamos a referência Multicaixa / instruções de pagamento',
+      successStep3: 'Após o pagamento, confirmamos a vaga e o teste de nível',
+      successWhatsApp: 'Falar no WhatsApp',
+      successHome: 'Voltar ao início',
+      successHint: 'Guarde o seu contacto activo — a equipa Academia Semente responderá em breve.',
       optOnline: 'Curso Online',
       optPresencial: 'Curso Presencial',
       optDomiciliar: 'Curso Domiciliar',
@@ -879,7 +903,7 @@
       enrollHeroCta: 'Fill in enrolment',
       enrollEyebrow: 'Enrolment',
       enrollTitle: 'Enrol now',
-      enrollDesc: 'Fill in the full form and send your enrolment directly on WhatsApp. We confirm your place and the free level test.',
+      enrollDesc: 'Fill in the full form. You will receive confirmation, then the payment reference and follow-up from the team.',
       contactEyebrow: 'Contact',
       contactTitle: 'Get in touch',
       contactDesc: 'Send us a message. We reply quickly via WhatsApp. To enrol in a course, use the enrolment page.',
@@ -925,8 +949,17 @@
       formTopicsPh: 'e.g. introductions, travel, work, daily conversation...',
       formNotes: 'Notes (optional)',
       formNotesPh: 'Any other relevant information',
-      formEnrollSubmit: 'Enrol via WhatsApp',
-      formHint: 'Submitting opens WhatsApp with your enrolment pre-filled.',
+      formEnrollSubmit: 'Submit enrolment',
+      formHint: 'After submitting, you will see confirmation and the team will contact you about payment next steps.',
+      successEyebrow: 'Enrolment received',
+      successTitle: 'Thank you,',
+      successText: 'Your enrolment was registered successfully. We will soon send the <strong>payment reference</strong> and receipt by WhatsApp or email.',
+      successStep1: 'We confirm your details and course format',
+      successStep2: 'We send the Multicaixa reference / payment instructions',
+      successStep3: 'After payment, we confirm your place and the level test',
+      successWhatsApp: 'Chat on WhatsApp',
+      successHome: 'Back to home',
+      successHint: 'Keep your contact available — the Academia Semente team will reply soon.',
       optOnline: 'Online Course',
       optPresencial: 'In-person Course',
       optDomiciliar: 'Home Course',

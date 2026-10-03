@@ -80,6 +80,18 @@ python3 -m http.server 8080
 
 ## Changelog
 
+### 2026-10-03 — Post-enrolment confirmation screen
+**What changed**
+- After submitting the enrolment form, the form is replaced by a success screen
+- Copy explains next steps: confirmation → Multicaixa reference / receipt → place + level test
+- WhatsApp still opens so the academy receives the full enrolment data (manual payment flow)
+
+**Files changed (download these for GitHub):**
+- `inscricao.html`
+- `js/main.js`
+- `css/styles.css`
+- `README.md`
+
 ### 2026-10-03 — Expanded enrolment form
 **What changed**
 - Enrolment form now includes personal data (idade, estado civil, e-mail), student level, and reflection questions from the academy owner:
