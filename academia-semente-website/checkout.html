@@ -88,7 +88,7 @@
         <div class="section-header">
           <p class="section-eyebrow" data-i18n="checkoutEyebrow">Encomenda</p>
           <h1 class="section-title" data-i18n="checkoutTitle">Checkout</h1>
-          <p class="section-desc" data-i18n="checkoutDesc">Confirme os produtos e os dados de entrega. A encomenda é finalizada via WhatsApp.</p>
+          <p class="section-desc" data-i18n="checkoutDesc">Confirme os produtos e os dados de entrega. Após confirmar, verá o próximo passo de pagamento.</p>
         </div>
 
         <!-- Empty state -->
@@ -164,9 +164,36 @@
               <textarea id="co-notes" name="notes" rows="3" placeholder="Instruções de entrega ou outras informações" data-i18n-placeholder="checkoutNotesPh"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-full" data-i18n="checkoutSubmit">Confirmar no WhatsApp</button>
-            <p class="form-hint" data-i18n="checkoutHint">Ao confirmar, abre o WhatsApp com a encomenda e os dados de entrega pré-preenchidos.</p>
+            <button type="submit" class="btn btn-primary btn-full" data-i18n="checkoutSubmit">Confirmar encomenda</button>
+            <p class="form-hint" data-i18n="checkoutHint">Após confirmar, verá a confirmação e a equipa enviará a referência de pagamento.</p>
           </form>
+        </div>
+
+        <!-- Post-order confirmation -->
+        <div class="enroll-success order-success" id="orderSuccess" hidden>
+          <div class="enroll-success-icon" aria-hidden="true">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <circle cx="12" cy="12" r="10"/>
+              <path d="M8 12.5l2.5 2.5L16 9"/>
+            </svg>
+          </div>
+          <p class="enroll-success-eyebrow" data-i18n="orderSuccessEyebrow">Encomenda recebida</p>
+          <h2 class="enroll-success-title"><span data-i18n="orderSuccessTitle">Obrigado,</span> <span id="orderSuccessName"></span></h2>
+          <p class="enroll-success-text" data-i18n="orderSuccessText">A sua encomenda foi registada com sucesso. Em breve enviaremos a <strong>referência de pagamento</strong> e o recibo por WhatsApp ou e-mail.</p>
+
+          <div class="order-success-summary" id="orderSuccessSummary"></div>
+
+          <ol class="enroll-success-steps">
+            <li data-i18n="orderSuccessStep1">Confirmamos os produtos e os dados de entrega</li>
+            <li data-i18n="orderSuccessStep2">Enviamos a referência Multicaixa / instruções de pagamento</li>
+            <li data-i18n="orderSuccessStep3">Após o pagamento, preparamos e enviamos a sua encomenda</li>
+          </ol>
+
+          <div class="enroll-success-actions">
+            <a href="https://wa.me/244945574700" target="_blank" rel="noopener" class="btn btn-primary" data-i18n="successWhatsApp">Falar no WhatsApp</a>
+            <a href="index.html#produtos" class="btn btn-outline" data-i18n="orderSuccessShop">Continuar a comprar</a>
+          </div>
+          <p class="form-hint" data-i18n="orderSuccessHint">Guarde o seu contacto activo — a equipa Academia Semente responderá em breve.</p>
         </div>
       </div>
     </section>

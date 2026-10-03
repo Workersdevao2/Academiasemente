@@ -429,12 +429,25 @@
       var municipality = document.getElementById('co-municipality').value.trim();
       var notesEl = document.getElementById('co-notes');
       var notes = notesEl ? notesEl.value.trim() : '';
+
+      // Snapshot order before clearing cart
+      var orderItems = cart.map(function (item) {
+        return {
+          id: item.id,
+          name: item.name,
+          nameEn: item.nameEn,
+          price: item.price,
+          qty: item.qty
+        };
+      });
+      var orderTotal = getCartTotal();
+
       var msg = 'Olá! Gostaria de *encomendar* os seguintes produtos:\n\n';
-      cart.forEach(function (item) {
+      orderItems.forEach(function (item) {
         var label = (currentLang === 'en' && item.nameEn) ? item.nameEn : item.name;
         msg += '• ' + label + ' × ' + item.qty + ' — ' + formatPrice(item.price * item.qty) + '\n';
       });
-      msg += '\n*Total: ' + formatPrice(getCartTotal()) + '*\n\n';
+      msg += '\n*Total: ' + formatPrice(orderTotal) + '*\n\n';
       msg += '*Entrega*\n';
       msg += 'Nome: ' + name + '\n';
       msg += 'Telefone: ' + phone + '\n';
@@ -443,7 +456,35 @@
       msg += 'Município: ' + municipality + '\n';
       if (notes) msg += 'Notas: ' + notes + '\n';
       openWhatsApp(msg);
+
+      clearCart();
+      showOrderSuccess(name, orderItems, orderTotal);
     });
+  }
+
+  function showOrderSuccess(name, items, total) {
+    var grid = document.getElementById('checkoutGrid');
+    var empty = document.getElementById('checkoutEmpty');
+    var success = document.getElementById('orderSuccess');
+    var nameEl = document.getElementById('orderSuccessName');
+    var summaryEl = document.getElementById('orderSuccessSummary');
+    var header = document.querySelector('#checkout .section-header');
+    if (nameEl) nameEl.textContent = name || '';
+    if (summaryEl && items && items.length) {
+      var lines = items.map(function (item) {
+        var label = (currentLang === 'en' && item.nameEn) ? item.nameEn : item.name;
+        return '<div class="order-success-line"><span>' + label + ' × ' + item.qty + '</span><span>' + formatPrice(item.price * item.qty) + '</span></div>';
+      }).join('');
+      lines += '<div class="order-success-line order-success-line--total"><span>' + (currentLang === 'en' ? 'Total' : 'Total') + '</span><strong>' + formatPrice(total) + '</strong></div>';
+      summaryEl.innerHTML = lines;
+    }
+    if (grid) grid.hidden = true;
+    if (empty) empty.hidden = true;
+    if (header) header.hidden = true;
+    if (success) {
+      success.hidden = false;
+      success.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
   }
 
   if (document.body.classList.contains('page-checkout')) {
@@ -805,15 +846,23 @@
       cartCheckout: 'Finalizar compra',
       checkoutEyebrow: 'Encomenda',
       checkoutTitle: 'Checkout',
-      checkoutDesc: 'Confirme os produtos e os dados de entrega. A encomenda é finalizada via WhatsApp.',
+      checkoutDesc: 'Confirme os produtos e os dados de entrega. Após confirmar, verá o próximo passo de pagamento.',
       checkoutEmpty: 'O seu carrinho está vazio.',
       checkoutBackShop: 'Ver produtos',
       checkoutSummary: 'Resumo da encomenda',
       checkoutContinue: 'Continuar a comprar',
       checkoutDelivery: 'Dados de entrega',
       checkoutNotesPh: 'Instruções de entrega ou outras informações',
-      checkoutSubmit: 'Confirmar no WhatsApp',
-      checkoutHint: 'Ao confirmar, abre o WhatsApp com a encomenda e os dados de entrega pré-preenchidos.'
+      checkoutSubmit: 'Confirmar encomenda',
+      checkoutHint: 'Após confirmar, verá a confirmação e a equipa enviará a referência de pagamento.',
+      orderSuccessEyebrow: 'Encomenda recebida',
+      orderSuccessTitle: 'Obrigado,',
+      orderSuccessText: 'A sua encomenda foi registada com sucesso. Em breve enviaremos a <strong>referência de pagamento</strong> e o recibo por WhatsApp ou e-mail.',
+      orderSuccessStep1: 'Confirmamos os produtos e os dados de entrega',
+      orderSuccessStep2: 'Enviamos a referência Multicaixa / instruções de pagamento',
+      orderSuccessStep3: 'Após o pagamento, preparamos e enviamos a sua encomenda',
+      orderSuccessShop: 'Continuar a comprar',
+      orderSuccessHint: 'Guarde o seu contacto activo — a equipa Academia Semente responderá em breve.'
     },
     en: {
       announce: 'Enrolments open',
@@ -993,15 +1042,23 @@
       cartCheckout: 'Checkout',
       checkoutEyebrow: 'Order',
       checkoutTitle: 'Checkout',
-      checkoutDesc: 'Confirm your products and delivery details. The order is completed via WhatsApp.',
+      checkoutDesc: 'Confirm your products and delivery details. After confirming, you will see the next payment step.',
       checkoutEmpty: 'Your cart is empty.',
       checkoutBackShop: 'View products',
       checkoutSummary: 'Order summary',
       checkoutContinue: 'Continue shopping',
       checkoutDelivery: 'Delivery details',
       checkoutNotesPh: 'Delivery instructions or other notes',
-      checkoutSubmit: 'Confirm on WhatsApp',
-      checkoutHint: 'Confirming opens WhatsApp with your order and delivery details pre-filled.'
+      checkoutSubmit: 'Confirm order',
+      checkoutHint: 'After confirming, you will see confirmation and the team will send the payment reference.',
+      orderSuccessEyebrow: 'Order received',
+      orderSuccessTitle: 'Thank you,',
+      orderSuccessText: 'Your order was registered successfully. We will soon send the <strong>payment reference</strong> and receipt by WhatsApp or email.',
+      orderSuccessStep1: 'We confirm the products and delivery details',
+      orderSuccessStep2: 'We send the Multicaixa reference / payment instructions',
+      orderSuccessStep3: 'After payment, we prepare and ship your order',
+      orderSuccessShop: 'Continue shopping',
+      orderSuccessHint: 'Keep your contact available — the Academia Semente team will reply soon.'
     }
   };
 

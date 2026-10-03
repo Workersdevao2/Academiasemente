@@ -1949,6 +1949,45 @@ h1, h2, h3, h4 {
   min-width: 160px;
 }
 
+
+.order-success {
+  margin-top: 1rem;
+}
+
+.order-success-summary {
+  text-align: left;
+  max-width: 400px;
+  margin: 0 auto 1.75rem;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--gray-200);
+  border-radius: 8px;
+  background: var(--surface, #fafbfa);
+}
+
+.order-success-line {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.88rem;
+  font-weight: 300;
+  color: var(--text);
+  padding: 0.4rem 0;
+}
+
+.order-success-line--total {
+  margin-top: 0.5rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--gray-200);
+  font-weight: 400;
+}
+
+.order-success-line--total strong {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+
 /* ========== CHECKOUT ========== */
 .page-checkout .site-header {
   top: var(--announce-height);

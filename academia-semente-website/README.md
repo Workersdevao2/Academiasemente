@@ -80,6 +80,18 @@ python3 -m http.server 8080
 
 ## Changelog
 
+### 2026-10-03 — Post-order (product) confirmation screen
+**What changed**
+- After confirming a product order on `checkout.html`, shows a success screen with order summary
+- Next steps: confirm order → Multicaixa reference / receipt → prepare and ship
+- Cart is cleared after confirm; WhatsApp still opens with full order for the academy
+
+**Files changed (download these for GitHub):**
+- `checkout.html`
+- `js/main.js`
+- `css/styles.css`
+- `README.md`
+
 ### 2026-10-03 — Post-enrolment confirmation screen
 **What changed**
 - After submitting the enrolment form, the form is replaced by a success screen
