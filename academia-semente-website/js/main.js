@@ -152,27 +152,46 @@
   if (enrollForm) {
     enrollForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      var name = document.getElementById('name').value.trim();
-      var phone = document.getElementById('phone').value.trim();
-      var addressEl = document.getElementById('address');
-      var provinceEl = document.getElementById('province');
-      var municipalityEl = document.getElementById('municipality');
-      var scheduleEl = document.getElementById('schedule');
-      var messageEl = document.getElementById('message');
-      var address = addressEl ? addressEl.value.trim() : '';
-      var province = provinceEl ? provinceEl.value : '';
-      var municipality = municipalityEl ? municipalityEl.value.trim() : '';
-      var interest = document.getElementById('interest').value;
-      var schedule = scheduleEl ? scheduleEl.value : '';
-      var message = messageEl ? messageEl.value.trim() : '';
+      function val(id) {
+        var el = document.getElementById(id);
+        return el ? String(el.value || '').trim() : '';
+      }
+      var name = val('name');
+      var age = val('age');
+      var marital = val('marital');
+      var email = val('email');
+      var phone = val('phone');
+      var address = val('address');
+      var province = val('province');
+      var municipality = val('municipality');
+      var interest = val('interest');
+      var level = val('level');
+      var schedule = val('schedule');
+      var motivation = val('motivation');
+      var difficulties = val('difficulties');
+      var experience = val('experience');
+      var topics = val('topics');
+      var message = val('message');
+
       var text = 'Olá! Gostaria de *inscrever-me* na Academia Semente.\n\n';
+      text += '*Dados pessoais*\n';
       text += 'Nome: *' + name + '*\n';
+      text += 'Idade: ' + age + '\n';
+      text += 'Estado civil: ' + marital + '\n';
+      text += 'E-mail: ' + email + '\n';
       text += 'Telefone: ' + phone + '\n';
       text += 'Morada: ' + address + '\n';
       text += 'Província: ' + province + '\n';
-      text += 'Município: ' + municipality + '\n';
-      text += 'Curso pretendido: *' + interest + '*\n';
-      text += 'Horário: *' + schedule + '*\n';
+      text += 'Município: ' + municipality + '\n\n';
+      text += '*Curso*\n';
+      text += 'Curso: *' + interest + '*\n';
+      text += 'Nível: *' + level + '*\n';
+      text += 'Horário: *' + schedule + '*\n\n';
+      text += '*Sobre o inglês*\n';
+      text += 'Motivação: ' + motivation + '\n\n';
+      text += 'Dificuldades: ' + difficulties + '\n\n';
+      text += 'Experiência anterior: ' + experience + '\n\n';
+      text += 'Temas prioritários: ' + topics + '\n';
       if (message) text += '\nNotas: ' + message;
       openWhatsApp(text);
     });
@@ -691,23 +710,42 @@
       socialLabel: 'Redes sociais',
       formName: 'Nome completo',
       formNamePh: 'O seu nome',
+      formAge: 'Idade',
+      formAgePh: 'Ex.: 22',
+      formMarital: 'Estado civil',
+      formMaritalPh: 'Seleccione',
+      formEmail: 'E-mail',
+      formEmailPh: 'nome@email.com',
       formPhone: 'Telefone / WhatsApp',
       formPhonePh: '+244 ...',
       formInterest: 'Assunto',
       formMessage: 'Mensagem',
       formMessagePh: 'Como podemos ajudar?',
       formSubmit: 'Enviar via WhatsApp',
-      formCourse: 'Curso pretendido',
-      formAddress: 'Morada',
+      formCourse: 'Curso em que se inscreve',
+      formAddress: 'Morada / Localização',
       formAddressPh: 'Rua, bairro, número',
       formProvince: 'Província',
       formProvincePh: 'Seleccione a província',
       formMunicipality: 'Município',
       formMunicipalityPh: 'Ex.: Belas, Viana, Cacuaco',
+      formLevel: 'Nível do estudante',
+      formLevelPh: 'Seleccione o nível',
       formSchedule: 'Horários disponíveis',
       formSchedulePh: 'Seleccione o horário',
+      formSectionPersonal: 'Dados pessoais',
+      formSectionCourse: 'Curso e horário',
+      formSectionEnglish: 'Sobre o seu inglês',
+      formMotivation: 'O que lhe motivou a aprender inglês?',
+      formMotivationPh: 'Descreva de forma breve a sua motivação',
+      formDifficulties: 'Tem dificuldades na língua inglesa? Quais?',
+      formDifficultiesPh: 'Ex.: falar, ouvir, gramática, vocabulário...',
+      formExperience: 'Já estudou a língua inglesa em algum lugar? Como foi a experiência?',
+      formExperiencePh: 'Onde estudou e como foi (ou indique se nunca estudou)',
+      formTopics: 'Que temas acha melhor estudarmos primeiro para falar inglês já?',
+      formTopicsPh: 'Ex.: apresentações, viagens, trabalho, conversação diária...',
       formNotes: 'Notas (opcional)',
-      formNotesPh: 'Dúvidas ou informações adicionais',
+      formNotesPh: 'Outras informações relevantes',
       formEnrollSubmit: 'Inscrever-me via WhatsApp',
       formHint: 'Ao enviar, abre o WhatsApp com a sua inscrição pré-preenchida.',
       optOnline: 'Curso Online',
@@ -717,6 +755,18 @@
       optMorning: '08h - 10h · Manhã',
       optAfternoon: '14h - 16h · Tarde',
       optFlexible: 'Flexível / a combinar',
+      optSingle: 'Solteiro/a',
+      optMarried: 'Casado/a',
+      optUnion: 'União de facto',
+      optDivorced: 'Divorciado/a',
+      optWidowed: 'Viúvo/a',
+      optPreferNot: 'Prefiro não dizer',
+      optBeginner: 'Iniciante',
+      optElementary: 'Elementar',
+      optPreInt: 'Pré-intermédio',
+      optIntermediate: 'Intermédio',
+      optAdvanced: 'Avançado',
+      optLevelUnknown: 'Não sei / quero teste de nível',
       optGeneral: 'Informações gerais',
       optCourses: 'Cursos',
       optProducts: 'Produtos / Materiais',
@@ -839,23 +889,42 @@
       socialLabel: 'Social media',
       formName: 'Full name',
       formNamePh: 'Your name',
+      formAge: 'Age',
+      formAgePh: 'e.g. 22',
+      formMarital: 'Marital status',
+      formMaritalPh: 'Select',
+      formEmail: 'Email',
+      formEmailPh: 'name@email.com',
       formPhone: 'Phone / WhatsApp',
       formPhonePh: '+244 ...',
       formInterest: 'Subject',
       formMessage: 'Message',
       formMessagePh: 'How can we help?',
       formSubmit: 'Send via WhatsApp',
-      formCourse: 'Preferred course',
-      formAddress: 'Address',
+      formCourse: 'Course you are enrolling in',
+      formAddress: 'Address / location',
       formAddressPh: 'Street, neighbourhood, number',
       formProvince: 'Province',
       formProvincePh: 'Select province',
       formMunicipality: 'Municipality',
       formMunicipalityPh: 'e.g. Belas, Viana, Cacuaco',
+      formLevel: 'Student level',
+      formLevelPh: 'Select level',
       formSchedule: 'Available schedules',
       formSchedulePh: 'Select schedule',
+      formSectionPersonal: 'Personal details',
+      formSectionCourse: 'Course and schedule',
+      formSectionEnglish: 'About your English',
+      formMotivation: 'What motivated you to learn English?',
+      formMotivationPh: 'Briefly describe your motivation',
+      formDifficulties: 'Do you have difficulties with English? Which ones?',
+      formDifficultiesPh: 'e.g. speaking, listening, grammar, vocabulary...',
+      formExperience: 'Have you studied English somewhere before? How was the experience?',
+      formExperiencePh: 'Where you studied and how it went (or say if never)',
+      formTopics: 'Which topics should we study first so you can speak English sooner?',
+      formTopicsPh: 'e.g. introductions, travel, work, daily conversation...',
       formNotes: 'Notes (optional)',
-      formNotesPh: 'Questions or extra details',
+      formNotesPh: 'Any other relevant information',
       formEnrollSubmit: 'Enrol via WhatsApp',
       formHint: 'Submitting opens WhatsApp with your enrolment pre-filled.',
       optOnline: 'Online Course',
@@ -865,6 +934,18 @@
       optMorning: '08h - 10h · Morning',
       optAfternoon: '14h - 16h · Afternoon',
       optFlexible: 'Flexible / to arrange',
+      optSingle: 'Single',
+      optMarried: 'Married',
+      optUnion: 'Civil partnership',
+      optDivorced: 'Divorced',
+      optWidowed: 'Widowed',
+      optPreferNot: 'Prefer not to say',
+      optBeginner: 'Beginner',
+      optElementary: 'Elementary',
+      optPreInt: 'Pre-intermediate',
+      optIntermediate: 'Intermediate',
+      optAdvanced: 'Advanced',
+      optLevelUnknown: 'Not sure / want a level test',
       optGeneral: 'General information',
       optCourses: 'Courses',
       optProducts: 'Products / Materials',

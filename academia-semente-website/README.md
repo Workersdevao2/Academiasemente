@@ -80,6 +80,21 @@ python3 -m http.server 8080
 
 ## Changelog
 
+### 2026-10-03 — Expanded enrolment form
+**What changed**
+- Enrolment form now includes personal data (idade, estado civil, e-mail), student level, and reflection questions from the academy owner:
+  - Motivação para aprender inglês
+  - Dificuldades na língua
+  - Experiência anterior de estudo
+  - Temas prioritários para começar a falar
+- WhatsApp message includes all new fields
+
+**Files changed (download these for GitHub):**
+- `inscricao.html`
+- `js/main.js`
+- `css/styles.css`
+- `README.md`
+
 ### 2026-10-03 — Checkout / scrolled header fix
 **What changed**
 - `.site-header.scrolled` no longer forces `top: 0` under the announce bar (brand name was hidden)

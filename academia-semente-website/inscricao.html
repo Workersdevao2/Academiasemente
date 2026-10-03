@@ -115,19 +115,45 @@
 
         <div class="enroll-grid">
           <form class="enroll-form enroll-form--wide" id="enrollForm">
+            <p class="form-section-title" data-i18n="formSectionPersonal">Dados pessoais</p>
+
             <div class="form-row">
               <div class="form-group">
                 <label for="name" data-i18n="formName">Nome completo *</label>
                 <input type="text" id="name" name="name" required placeholder="O seu nome" data-i18n-placeholder="formNamePh" autocomplete="name">
               </div>
               <div class="form-group">
-                <label for="phone" data-i18n="formPhone">Telefone / WhatsApp *</label>
-                <input type="tel" id="phone" name="phone" required placeholder="+244 ..." data-i18n-placeholder="formPhonePh" autocomplete="tel">
+                <label for="age" data-i18n="formAge">Idade *</label>
+                <input type="number" id="age" name="age" required min="5" max="99" placeholder="Ex.: 22" data-i18n-placeholder="formAgePh">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="marital" data-i18n="formMarital">Estado civil *</label>
+                <select id="marital" name="marital" required>
+                  <option value="" disabled selected data-i18n="formMaritalPh">Seleccione</option>
+                  <option value="Solteiro/a" data-i18n="optSingle">Solteiro/a</option>
+                  <option value="Casado/a" data-i18n="optMarried">Casado/a</option>
+                  <option value="União de facto" data-i18n="optUnion">União de facto</option>
+                  <option value="Divorciado/a" data-i18n="optDivorced">Divorciado/a</option>
+                  <option value="Viúvo/a" data-i18n="optWidowed">Viúvo/a</option>
+                  <option value="Prefiro não dizer" data-i18n="optPreferNot">Prefiro não dizer</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="email" data-i18n="formEmail">E-mail *</label>
+                <input type="email" id="email" name="email" required placeholder="nome@email.com" data-i18n-placeholder="formEmailPh" autocomplete="email">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="address" data-i18n="formAddress">Morada *</label>
+              <label for="phone" data-i18n="formPhone">Telefone / WhatsApp *</label>
+              <input type="tel" id="phone" name="phone" required placeholder="+244 ..." data-i18n-placeholder="formPhonePh" autocomplete="tel">
+            </div>
+
+            <div class="form-group">
+              <label for="address" data-i18n="formAddress">Morada / Localização *</label>
               <input type="text" id="address" name="address" required placeholder="Rua, bairro, número" data-i18n-placeholder="formAddressPh" autocomplete="street-address">
             </div>
 
@@ -162,9 +188,11 @@
               </div>
             </div>
 
+            <p class="form-section-title" data-i18n="formSectionCourse">Curso e horário</p>
+
             <div class="form-row">
               <div class="form-group">
-                <label for="interest" data-i18n="formCourse">Curso pretendido *</label>
+                <label for="interest" data-i18n="formCourse">Curso em que se inscreve *</label>
                 <select id="interest" name="interest" required>
                   <option value="Online" data-i18n="optOnline">Curso Online</option>
                   <option value="Presencial" data-i18n="optPresencial">Curso Presencial</option>
@@ -173,19 +201,54 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="schedule" data-i18n="formSchedule">Horários disponíveis *</label>
-                <select id="schedule" name="schedule" required>
-                  <option value="" disabled selected data-i18n="formSchedulePh">Seleccione o horário</option>
-                  <option value="08h - 10h (Manhã)" data-i18n="optMorning">08h - 10h · Manhã</option>
-                  <option value="14h - 16h (Tarde)" data-i18n="optAfternoon">14h - 16h · Tarde</option>
-                  <option value="Flexível / a combinar" data-i18n="optFlexible">Flexível / a combinar</option>
+                <label for="level" data-i18n="formLevel">Nível do estudante *</label>
+                <select id="level" name="level" required>
+                  <option value="" disabled selected data-i18n="formLevelPh">Seleccione o nível</option>
+                  <option value="Iniciante" data-i18n="optBeginner">Iniciante</option>
+                  <option value="Elementar" data-i18n="optElementary">Elementar</option>
+                  <option value="Pré-intermédio" data-i18n="optPreInt">Pré-intermédio</option>
+                  <option value="Intermédio" data-i18n="optIntermediate">Intermédio</option>
+                  <option value="Avançado" data-i18n="optAdvanced">Avançado</option>
+                  <option value="Não sei / quero teste de nível" data-i18n="optLevelUnknown">Não sei / quero teste de nível</option>
                 </select>
               </div>
             </div>
 
             <div class="form-group">
+              <label for="schedule" data-i18n="formSchedule">Horários disponíveis *</label>
+              <select id="schedule" name="schedule" required>
+                <option value="" disabled selected data-i18n="formSchedulePh">Seleccione o horário</option>
+                <option value="08h - 10h (Manhã)" data-i18n="optMorning">08h - 10h · Manhã</option>
+                <option value="14h - 16h (Tarde)" data-i18n="optAfternoon">14h - 16h · Tarde</option>
+                <option value="Flexível / a combinar" data-i18n="optFlexible">Flexível / a combinar</option>
+              </select>
+            </div>
+
+            <p class="form-section-title" data-i18n="formSectionEnglish">Sobre o seu inglês</p>
+
+            <div class="form-group">
+              <label for="motivation" data-i18n="formMotivation">O que lhe motivou a aprender inglês? *</label>
+              <textarea id="motivation" name="motivation" rows="3" required placeholder="Descreva de forma breve a sua motivação" data-i18n-placeholder="formMotivationPh"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="difficulties" data-i18n="formDifficulties">Tem dificuldades na língua inglesa? Quais? *</label>
+              <textarea id="difficulties" name="difficulties" rows="3" required placeholder="Ex.: falar, ouvir, gramática, vocabulário..." data-i18n-placeholder="formDifficultiesPh"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="experience" data-i18n="formExperience">Já estudou a língua inglesa em algum lugar? Como foi a experiência? *</label>
+              <textarea id="experience" name="experience" rows="3" required placeholder="Onde estudou e como foi a experiência (ou indique se nunca estudou)" data-i18n-placeholder="formExperiencePh"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label for="topics" data-i18n="formTopics">Na sua opinião, que temas acha melhor estudarmos primeiro para falar inglês já? *</label>
+              <textarea id="topics" name="topics" rows="3" required placeholder="Ex.: apresentações, viagens, trabalho, conversação diária..." data-i18n-placeholder="formTopicsPh"></textarea>
+            </div>
+
+            <div class="form-group">
               <label for="message" data-i18n="formNotes">Notas (opcional)</label>
-              <textarea id="message" name="message" rows="3" placeholder="Dúvidas ou informações adicionais" data-i18n-placeholder="formNotesPh"></textarea>
+              <textarea id="message" name="message" rows="2" placeholder="Outras informações relevantes" data-i18n-placeholder="formNotesPh"></textarea>
             </div>
 
             <button type="submit" class="btn btn-primary btn-full" data-i18n="formEnrollSubmit">Inscrever-me via WhatsApp</button>

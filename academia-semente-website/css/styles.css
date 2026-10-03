@@ -1575,8 +1575,28 @@ h1, h2, h3, h4 {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
 }
 
+
+.form-section-title {
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin: 1.5rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--gray-200);
+}
+
+.form-section-title:first-child {
+  margin-top: 0;
+}
+
 .enroll-form--wide {
-  max-width: 640px;
+  max-width: 720px;
+}
+
+.enroll-form--wide {
+  max-width: 720px;
 }
 
 .form-row {
