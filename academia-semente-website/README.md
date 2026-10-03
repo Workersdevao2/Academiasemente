@@ -80,6 +80,16 @@ python3 -m http.server 8080
 
 ## Changelog
 
+### 2026-10-03 — Checkout / scrolled header fix
+**What changed**
+- `.site-header.scrolled` no longer forces `top: 0` under the announce bar (brand name was hidden)
+- Checkout page header: solid white + dark text (name, hamburger, cart, lang) on mobile and desktop
+
+**Files changed (download these for GitHub):**
+- `css/styles.css`
+- `js/main.js`
+- `README.md`
+
 ### 2026-10-03 — Product checkout page
 **What changed**
 - New **`checkout.html`**: order summary (images, qty +/−, remove), delivery form (nome, telefone, morada, província, município, notas)

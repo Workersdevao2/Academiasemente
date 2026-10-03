@@ -46,9 +46,12 @@
       if (scrollY > 80 && scrollY > lastScroll) {
         announceBar.classList.add('hidden');
         siteHeader.style.top = '0';
-      } else if (scrollY < 40) {
-        announceBar.classList.remove('hidden');
-        siteHeader.style.top = '';
+      } else if (scrollY < 40 || !announceBar.classList.contains('hidden')) {
+        // Keep header below announce bar whenever it is visible
+        if (scrollY < 40) announceBar.classList.remove('hidden');
+        if (!announceBar.classList.contains('hidden')) {
+          siteHeader.style.top = '';
+        }
       }
     }
     lastScroll = scrollY;
