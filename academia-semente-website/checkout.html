@@ -3,22 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Inscrição Academia Semente — cursos de inglês em Angola. Online, presencial e domiciliar.">
-  <title>Inscrição | Academia Semente</title>
+  <meta name="description" content="Checkout Academia Semente — finalize a encomenda dos materiais oficiais.">
+  <title>Checkout | Academia Semente</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌱</text></svg>">
 </head>
-<body class="page-enroll">
+<body class="page-checkout">
   <div class="announce-bar" id="announceBar">
     <a href="index.html#cursos" class="announce-link">
       <span data-i18n="announce">Inscrições abertas</span> · <span class="announce-accent" data-i18n="announceAccent">Teste de nível gratuito</span>
     </a>
   </div>
 
-  <header class="site-header" id="siteHeader">
+  <header class="site-header scrolled" id="siteHeader">
     <div class="header-inner">
       <button class="hamburger" id="hamburger" aria-label="Menu" aria-expanded="false">
         <span class="ham-line"></span>
@@ -52,7 +52,7 @@
       <a href="index.html#cursos" data-i18n="navCourses">Cursos</a>
       <a href="index.html#produtos" data-i18n="navProducts">Produtos</a>
       <a href="index.html#contacto" data-i18n="navContact">Contacto</a>
-      <a href="inscricao.html" class="nav-active" data-i18n="navEnroll">Inscrição</a>
+      <a href="inscricao.html" data-i18n="navEnroll">Inscrição</a>
     </nav>
   </header>
 
@@ -83,58 +83,55 @@
   </aside>
 
   <main>
-    <!-- ========== HERO ========== -->
-    <section class="hero hero--enroll" id="inicio">
-      <div class="hero-bg"></div>
-      <div class="hero-overlay"></div>
-      <div class="hero-inner">
-        <div class="hero-content">
-          <p class="hero-eyebrow" data-i18n="enrollHeroEyebrow">Inscrição · Academia Semente</p>
-          <h1 class="hero-title" data-i18n="enrollHeroTitle">Dê o primeiro passo<br>para a fluência</h1>
-          <p class="hero-subtitle" data-i18n="enrollHeroSubtitle">Preencha o formulário abaixo e envie a sua inscrição via WhatsApp. Confirmamos a vaga e o teste de nível gratuito.</p>
-          <div class="hero-cta">
-            <a href="#formulario" class="btn btn-primary" data-i18n="enrollHeroCta">Preencher inscrição</a>
-            <a href="https://wa.me/244945574700?text=Olá! Gostaria de me inscrever na Academia Semente." target="_blank" rel="noopener" class="btn btn-ghost" data-i18n="heroCta2">Falar no WhatsApp</a>
-          </div>
-        </div>
-      </div>
-      <div class="hero-scroll">
-        <span data-i18n="scroll">Scroll</span>
-        <div class="scroll-line"></div>
-      </div>
-    </section>
-
-    <section class="section inscricao page-inscricao" id="formulario">
-      <div class="inscricao-bg" aria-hidden="true"></div>
+    <section class="section checkout-page" id="checkout">
       <div class="container">
         <div class="section-header">
-          <p class="section-eyebrow" data-i18n="enrollEyebrow">Inscrição</p>
-          <h2 class="section-title" data-i18n="enrollTitle">Inscreva-se agora</h2>
-          <p class="section-desc" data-i18n="enrollDesc">Preencha o formulário completo e envie a sua inscrição directamente no WhatsApp. Confirmamos a vaga e o teste de nível gratuito.</p>
+          <p class="section-eyebrow" data-i18n="checkoutEyebrow">Encomenda</p>
+          <h1 class="section-title" data-i18n="checkoutTitle">Checkout</h1>
+          <p class="section-desc" data-i18n="checkoutDesc">Confirme os produtos e os dados de entrega. A encomenda é finalizada via WhatsApp.</p>
         </div>
 
-        <div class="enroll-grid">
-          <form class="enroll-form enroll-form--wide" id="enrollForm">
+        <!-- Empty state -->
+        <div class="checkout-empty" id="checkoutEmpty" hidden>
+          <p data-i18n="checkoutEmpty">O seu carrinho está vazio.</p>
+          <a href="index.html#produtos" class="btn btn-primary" data-i18n="checkoutBackShop">Ver produtos</a>
+        </div>
+
+        <!-- Checkout grid -->
+        <div class="checkout-grid" id="checkoutGrid" hidden>
+          <div class="checkout-summary">
+            <h2 class="checkout-block-title" data-i18n="checkoutSummary">Resumo da encomenda</h2>
+            <div class="checkout-items" id="checkoutItems"></div>
+            <div class="checkout-total-row">
+              <span data-i18n="cartTotal">Total</span>
+              <strong id="checkoutTotal">0 Kz</strong>
+            </div>
+            <a href="index.html#produtos" class="checkout-continue" data-i18n="checkoutContinue">Continuar a comprar</a>
+          </div>
+
+          <form class="checkout-form" id="checkoutForm">
+            <h2 class="checkout-block-title" data-i18n="checkoutDelivery">Dados de entrega</h2>
+
             <div class="form-row">
               <div class="form-group">
-                <label for="name" data-i18n="formName">Nome completo *</label>
-                <input type="text" id="name" name="name" required placeholder="O seu nome" data-i18n-placeholder="formNamePh" autocomplete="name">
+                <label for="co-name" data-i18n="formName">Nome completo *</label>
+                <input type="text" id="co-name" name="name" required placeholder="O seu nome" data-i18n-placeholder="formNamePh" autocomplete="name">
               </div>
               <div class="form-group">
-                <label for="phone" data-i18n="formPhone">Telefone / WhatsApp *</label>
-                <input type="tel" id="phone" name="phone" required placeholder="+244 ..." data-i18n-placeholder="formPhonePh" autocomplete="tel">
+                <label for="co-phone" data-i18n="formPhone">Telefone / WhatsApp *</label>
+                <input type="tel" id="co-phone" name="phone" required placeholder="+244 ..." data-i18n-placeholder="formPhonePh" autocomplete="tel">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="address" data-i18n="formAddress">Morada *</label>
-              <input type="text" id="address" name="address" required placeholder="Rua, bairro, número" data-i18n-placeholder="formAddressPh" autocomplete="street-address">
+              <label for="co-address" data-i18n="formAddress">Morada *</label>
+              <input type="text" id="co-address" name="address" required placeholder="Rua, bairro, número" data-i18n-placeholder="formAddressPh" autocomplete="street-address">
             </div>
 
             <div class="form-row">
               <div class="form-group">
-                <label for="province" data-i18n="formProvince">Província *</label>
-                <select id="province" name="province" required>
+                <label for="co-province" data-i18n="formProvince">Província *</label>
+                <select id="co-province" name="province" required>
                   <option value="" disabled selected data-i18n="formProvincePh">Seleccione a província</option>
                   <option value="Bengo">Bengo</option>
                   <option value="Benguela">Benguela</option>
@@ -157,39 +154,18 @@
                 </select>
               </div>
               <div class="form-group">
-                <label for="municipality" data-i18n="formMunicipality">Município *</label>
-                <input type="text" id="municipality" name="municipality" required placeholder="Ex.: Belas, Viana, Cacuaco" data-i18n-placeholder="formMunicipalityPh" autocomplete="address-level2">
-              </div>
-            </div>
-
-            <div class="form-row">
-              <div class="form-group">
-                <label for="interest" data-i18n="formCourse">Curso pretendido *</label>
-                <select id="interest" name="interest" required>
-                  <option value="Online" data-i18n="optOnline">Curso Online</option>
-                  <option value="Presencial" data-i18n="optPresencial">Curso Presencial</option>
-                  <option value="Domiciliar" data-i18n="optDomiciliar">Curso Domiciliar</option>
-                  <option value="Teste de nível" data-i18n="optLevelTest">Teste de nível gratuito</option>
-                </select>
-              </div>
-              <div class="form-group">
-                <label for="schedule" data-i18n="formSchedule">Horários disponíveis *</label>
-                <select id="schedule" name="schedule" required>
-                  <option value="" disabled selected data-i18n="formSchedulePh">Seleccione o horário</option>
-                  <option value="08h - 10h (Manhã)" data-i18n="optMorning">08h - 10h · Manhã</option>
-                  <option value="14h - 16h (Tarde)" data-i18n="optAfternoon">14h - 16h · Tarde</option>
-                  <option value="Flexível / a combinar" data-i18n="optFlexible">Flexível / a combinar</option>
-                </select>
+                <label for="co-municipality" data-i18n="formMunicipality">Município *</label>
+                <input type="text" id="co-municipality" name="municipality" required placeholder="Ex.: Belas, Viana, Cacuaco" data-i18n-placeholder="formMunicipalityPh" autocomplete="address-level2">
               </div>
             </div>
 
             <div class="form-group">
-              <label for="message" data-i18n="formNotes">Notas (opcional)</label>
-              <textarea id="message" name="message" rows="3" placeholder="Dúvidas ou informações adicionais" data-i18n-placeholder="formNotesPh"></textarea>
+              <label for="co-notes" data-i18n="formNotes">Notas (opcional)</label>
+              <textarea id="co-notes" name="notes" rows="3" placeholder="Instruções de entrega ou outras informações" data-i18n-placeholder="checkoutNotesPh"></textarea>
             </div>
 
-            <button type="submit" class="btn btn-primary btn-full" data-i18n="formEnrollSubmit">Inscrever-me via WhatsApp</button>
-            <p class="form-hint" data-i18n="formHint">Ao enviar, abre o WhatsApp com a sua inscrição pré-preenchida.</p>
+            <button type="submit" class="btn btn-primary btn-full" data-i18n="checkoutSubmit">Confirmar no WhatsApp</button>
+            <p class="form-hint" data-i18n="checkoutHint">Ao confirmar, abre o WhatsApp com a encomenda e os dados de entrega pré-preenchidos.</p>
           </form>
         </div>
       </div>

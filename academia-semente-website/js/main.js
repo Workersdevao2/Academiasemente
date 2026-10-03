@@ -35,8 +35,9 @@
   function updateHeader() {
     if (!siteHeader) { ticking = false; return; }
     const scrollY = window.scrollY;
-    // Same behaviour on home and enrol: transparent over hero, solid after scroll
-    if (scrollY > 40) {
+    var forceSolid = document.body.classList.contains('page-checkout');
+    // Home + enrol: transparent over hero. Checkout: always solid.
+    if (forceSolid || scrollY > 40) {
       siteHeader.classList.add('scrolled');
     } else {
       siteHeader.classList.remove('scrolled');
@@ -242,6 +243,7 @@
         '</div>' +
       '</div>';
     }).join('');
+    if (document.getElementById('checkoutItems')) renderCheckoutPage();
   }
 
   function addToCart(id, name, price, nameEn) {
@@ -297,23 +299,118 @@
   if (cartClose) cartClose.addEventListener('click', closeCart);
   if (cartOverlay) cartOverlay.addEventListener('click', closeCart);
 
-  function checkoutWhatsApp() {
+  function goToCheckout() {
     if (cart.length === 0) return;
-    var msg = 'Olá! Gostaria de encomendar os seguintes produtos:\n\n';
-    cart.forEach(function (item) {
+    closeCart();
+    window.location.href = 'checkout.html';
+  }
+
+  var PRODUCT_IMAGES = {
+    caderno: 'assets/products/caderno.jpg',
+    polo: 'assets/products/polo-front.jpg',
+    canetas: 'assets/products/canetas.jpg',
+    manual: 'assets/products/manual.jpg'
+  };
+
+  function renderCheckoutPage() {
+    var emptyEl = document.getElementById('checkoutEmpty');
+    var gridEl = document.getElementById('checkoutGrid');
+    var itemsEl = document.getElementById('checkoutItems');
+    var totalEl = document.getElementById('checkoutTotal');
+    if (!emptyEl || !gridEl || !itemsEl) return;
+
+    if (cart.length === 0) {
+      emptyEl.hidden = false;
+      gridEl.hidden = true;
+      return;
+    }
+    emptyEl.hidden = true;
+    gridEl.hidden = false;
+    if (totalEl) totalEl.textContent = formatPrice(getCartTotal());
+
+    itemsEl.innerHTML = cart.map(function (item) {
       var label = (currentLang === 'en' && item.nameEn) ? item.nameEn : item.name;
-      msg += '• ' + label + ' × ' + item.qty + ' - ' + formatPrice(item.price * item.qty) + '\n';
+      var img = PRODUCT_IMAGES[item.id] || '';
+      var line = formatPrice(item.price * item.qty);
+      return '<div class="checkout-item" data-id="' + item.id + '">' +
+        (img ? '<div class="checkout-item-img"><img src="' + img + '" alt="" loading="lazy"></div>' : '') +
+        '<div class="checkout-item-info">' +
+          '<div class="checkout-item-name">' + label + '</div>' +
+          '<div class="checkout-item-meta">' + formatPrice(item.price) + ' × ' + item.qty + '</div>' +
+        '</div>' +
+        '<div class="checkout-item-line">' + line + '</div>' +
+        '<div class="checkout-item-actions">' +
+          '<button type="button" class="qty-btn qty-minus" data-id="' + item.id + '" aria-label="Diminuir">−</button>' +
+          '<span class="qty-value">' + item.qty + '</span>' +
+          '<button type="button" class="qty-btn qty-plus" data-id="' + item.id + '" aria-label="Aumentar">+</button>' +
+          '<button type="button" class="cart-item-remove" data-id="' + item.id + '" aria-label="Remover">' +
+            '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 6L6 18M6 6l12 12"/></svg>' +
+          '</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
+  }
+
+  // Hook qty changes on checkout page
+  var checkoutItemsEl = document.getElementById('checkoutItems');
+  if (checkoutItemsEl) {
+    checkoutItemsEl.addEventListener('click', function (e) {
+      var t = e.target;
+      if (!t || !t.closest) return;
+      var minus = t.closest('.qty-minus');
+      if (minus) {
+        e.preventDefault();
+        changeQty(minus.getAttribute('data-id'), -1);
+        renderCheckoutPage();
+        return;
+      }
+      var plus = t.closest('.qty-plus');
+      if (plus) {
+        e.preventDefault();
+        changeQty(plus.getAttribute('data-id'), 1);
+        renderCheckoutPage();
+        return;
+      }
+      var remove = t.closest('.cart-item-remove');
+      if (remove) {
+        e.preventDefault();
+        removeItem(remove.getAttribute('data-id'));
+        renderCheckoutPage();
+      }
     });
-    msg += '\n*Total: ' + formatPrice(getCartTotal()) + '*';
-    var url = 'https://wa.me/244945574700?text=' + encodeURIComponent(msg);
-    // Mobile-friendly open (window.open is often blocked on iOS)
-    var a = document.createElement('a');
-    a.href = url;
-    a.target = '_blank';
-    a.rel = 'noopener';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+  }
+
+  var checkoutForm = document.getElementById('checkoutForm');
+  if (checkoutForm) {
+    checkoutForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (cart.length === 0) return;
+      var name = document.getElementById('co-name').value.trim();
+      var phone = document.getElementById('co-phone').value.trim();
+      var address = document.getElementById('co-address').value.trim();
+      var province = document.getElementById('co-province').value;
+      var municipality = document.getElementById('co-municipality').value.trim();
+      var notesEl = document.getElementById('co-notes');
+      var notes = notesEl ? notesEl.value.trim() : '';
+      var msg = 'Olá! Gostaria de *encomendar* os seguintes produtos:\n\n';
+      cart.forEach(function (item) {
+        var label = (currentLang === 'en' && item.nameEn) ? item.nameEn : item.name;
+        msg += '• ' + label + ' × ' + item.qty + ' — ' + formatPrice(item.price * item.qty) + '\n';
+      });
+      msg += '\n*Total: ' + formatPrice(getCartTotal()) + '*\n\n';
+      msg += '*Entrega*\n';
+      msg += 'Nome: ' + name + '\n';
+      msg += 'Telefone: ' + phone + '\n';
+      msg += 'Morada: ' + address + '\n';
+      msg += 'Província: ' + province + '\n';
+      msg += 'Município: ' + municipality + '\n';
+      if (notes) msg += 'Notas: ' + notes + '\n';
+      openWhatsApp(msg);
+    });
+  }
+
+  if (document.body.classList.contains('page-checkout')) {
+    renderCheckoutPage();
   }
 
   // Delegate all cart actions from the drawer (survives re-renders, works on SVG taps)
@@ -329,7 +426,7 @@
       }
       if (t.closest('#cartCheckout')) {
         e.preventDefault();
-        checkoutWhatsApp();
+        goToCheckout();
         return;
       }
       var minus = t.closest('.qty-minus');
@@ -628,7 +725,18 @@
       cartEmpty: 'O seu carrinho está vazio.',
       cartTotal: 'Total',
       cartClear: 'Limpar tudo',
-      cartCheckout: 'Finalizar no WhatsApp'
+      cartCheckout: 'Finalizar compra',
+      checkoutEyebrow: 'Encomenda',
+      checkoutTitle: 'Checkout',
+      checkoutDesc: 'Confirme os produtos e os dados de entrega. A encomenda é finalizada via WhatsApp.',
+      checkoutEmpty: 'O seu carrinho está vazio.',
+      checkoutBackShop: 'Ver produtos',
+      checkoutSummary: 'Resumo da encomenda',
+      checkoutContinue: 'Continuar a comprar',
+      checkoutDelivery: 'Dados de entrega',
+      checkoutNotesPh: 'Instruções de entrega ou outras informações',
+      checkoutSubmit: 'Confirmar no WhatsApp',
+      checkoutHint: 'Ao confirmar, abre o WhatsApp com a encomenda e os dados de entrega pré-preenchidos.'
     },
     en: {
       announce: 'Enrolments open',
@@ -765,7 +873,18 @@
       cartEmpty: 'Your cart is empty.',
       cartTotal: 'Total',
       cartClear: 'Clear all',
-      cartCheckout: 'Checkout on WhatsApp'
+      cartCheckout: 'Checkout',
+      checkoutEyebrow: 'Order',
+      checkoutTitle: 'Checkout',
+      checkoutDesc: 'Confirm your products and delivery details. The order is completed via WhatsApp.',
+      checkoutEmpty: 'Your cart is empty.',
+      checkoutBackShop: 'View products',
+      checkoutSummary: 'Order summary',
+      checkoutContinue: 'Continue shopping',
+      checkoutDelivery: 'Delivery details',
+      checkoutNotesPh: 'Delivery instructions or other notes',
+      checkoutSubmit: 'Confirm on WhatsApp',
+      checkoutHint: 'Confirming opens WhatsApp with your order and delivery details pre-filled.'
     }
   };
 
@@ -789,6 +908,7 @@
       if (t[key] !== undefined) opt.textContent = t[key];
     });
     updateCartUI();
+    if (typeof renderCheckoutPage === 'function') renderCheckoutPage();
   }
 
   document.querySelectorAll('.lang-btn').forEach(function (btn) {

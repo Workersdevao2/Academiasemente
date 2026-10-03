@@ -20,10 +20,10 @@ Professional luxury website for **Academia Semente**, an English language academ
 - Service cards link to **dedicated enrolment page** and pre-select the course (`?course=`)
 - Physical products shop with **shopping cart**
   - Add to cart, quantity +/−, remove item
-  - Clear all, total, checkout via WhatsApp
-  - Cart drawer slides from the right
-  - Swipe right to close on mobile
+  - Clear all, total
+  - Cart drawer slides from the right; swipe to close on mobile
   - Cart persists in localStorage
+  - **Checkout page** (`checkout.html`): order summary + delivery form → WhatsApp
 - **Contact section** on home (`#contacto`) with general message form → WhatsApp
 - **Dedicated enrolment page** (`inscricao.html`) with full form:
   - Nome, Telefone, Morada *, Província *, Município *
@@ -44,6 +44,7 @@ Professional luxury website for **Academia Semente**, an English language academ
 academia-semente-website/
 ├── index.html          ← home (includes contact form)
 ├── inscricao.html      ← dedicated enrolment page
+├── checkout.html       ← product checkout / delivery
 ├── css/styles.css
 ├── js/main.js
 ├── assets/
@@ -78,6 +79,20 @@ python3 -m http.server 8080
 - Hero image → `assets/hero.jpg`
 
 ## Changelog
+
+### 2026-10-03 — Product checkout page
+**What changed**
+- New **`checkout.html`**: order summary (images, qty +/−, remove), delivery form (nome, telefone, morada, província, município, notas)
+- Cart “Finalizar compra” opens the checkout page (no longer jumps straight to WhatsApp)
+- Confirm on checkout builds WhatsApp message with products + delivery details
+
+**Files changed (download these for GitHub):**
+- `checkout.html` *(new)*
+- `js/main.js`
+- `css/styles.css`
+- `index.html` (cart button label)
+- `inscricao.html` (cart button label)
+- `README.md`
 
 ### 2026-10-02 — Enrol page header fix
 **What changed**
